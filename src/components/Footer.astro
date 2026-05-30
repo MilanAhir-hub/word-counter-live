@@ -1,0 +1,67 @@
+---
+
+const footerLinks = [
+  {
+    title: 'Tool',
+    links: [
+      { label: 'Word Counter', href: '#tool' },
+      { label: 'Character Counter', href: '#tool' },
+      { label: 'Keyword Density', href: '#tool' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'Blog', href: '#' },
+      { label: 'Writing Tips', href: '#' },
+      { label: 'Help', href: '#' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'Privacy', href: '#' },
+      { label: 'Terms', href: '#' },
+      { label: 'Contact', href: '#' },
+    ],
+  },
+];
+---
+
+<footer class="border-t border-hairline bg-canvas">
+  <div class="container-main py-4xl">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-xl">
+      <div class="col-span-2 md:col-span-1">
+        <a href="/" class="flex items-center gap-2 no-underline mb-3">
+          <span class="w-6 h-6 rounded bg-ink flex items-center justify-center text-xs text-on-primary font-semibold">W</span>
+          <span class="text-caption font-medium text-ink">Word Counter Live</span>
+        </a>
+        <p class="text-body-sm text-body max-w-xs">
+          Free online word counter tool. Count words, characters, sentences, and more with real-time analysis.
+        </p>
+      </div>
+      {
+        footerLinks.map((group) => (
+          <div>
+            <h4 class="text-caption-mono text-body font-medium mb-3 uppercase tracking-wider">{group.title}</h4>
+            <ul class="list-none p-0 m-0 flex flex-col gap-2">
+              {
+                group.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="text-body-sm text-body no-underline hover:text-ink transition-colors">
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-4xl pt-lg border-t border-hairline flex flex-col sm:flex-row justify-between items-center gap-md">
+      <p class="text-caption text-mute">&copy; {new Date().getFullYear()} Word Counter Live. All rights reserved.</p>
+      <p class="text-caption text-mute">Made with care for writers everywhere.</p>
+    </div>
+  </div>
+</footer>

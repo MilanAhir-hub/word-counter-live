@@ -1,0 +1,51 @@
+---
+---
+
+<nav class="h-16 flex items-center border-b border-hairline bg-canvas sticky top-0 z-50">
+  <div class="container-main flex items-center justify-between w-full">
+    <a href="/" class="flex items-center gap-2 no-underline" aria-label="Word Counter Live Home">
+      <span class="w-7 h-7 rounded-md bg-ink flex items-center justify-center text-xs text-on-primary font-semibold">W</span>
+      <span class="text-body-sm-strong text-ink hidden sm:inline">Word Counter Live</span>
+    </a>
+    <div class="flex items-center gap-1 sm:gap-2">
+      <a href="#tool" class="nav-link">Tool</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#tool" class="nav-cta-signup">Start Counting</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-link {
+    color: var(--color-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .nav-link:hover {
+    background-color: var(--color-canvas-soft-2);
+    color: var(--color-ink);
+  }
+  .nav-cta-signup {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 0 8px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .nav-cta-signup:hover {
+    opacity: 0.85;
+  }
+</style>

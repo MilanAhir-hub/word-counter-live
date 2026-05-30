@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.astro';
+import WordCounter from '../components/WordCounter.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <NavBar />
+
+  <!-- Hero -->
+  <section class="mesh-gradient relative overflow-hidden">
+    <div class="container-main py-5xl sm:py-section text-center">
+      <div class="max-w-3xl mx-auto">
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-canvas text-caption text-body border border-hairline mb-4">
+          Free Online Tool — No sign-up required
+        </span>
+        <h1 class="text-display-xl text-balance mb-4">
+          Count words, not problems.
+        </h1>
+        <p class="text-body-lg text-body max-w-xl mx-auto text-balance">
+          The fast, privacy-first word counter. Type or paste your text below and get instant stats — words, characters, sentences, reading time, and more.
+        </p>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-hairline to-transparent" />
+  </section>
+
+  <!-- Tool Section -->
+  <section id="tool" class="container-main -mt-16 sm:-mt-24 pb-5xl relative z-10">
+    <WordCounter />
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="bg-canvas border-t border-hairline">
+    <div class="container-main py-5xl">
+      <div class="text-center mb-4xl">
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-canvas-soft text-caption text-body border border-hairline mb-3">
+          Everything you need
+        </span>
+        <h2 class="text-display-lg text-balance">Know your writing inside out.</h2>
+        <p class="text-body-md text-body max-w-lg mx-auto mt-3">
+          Real-time analytics that help you write better, track progress, and hit your goals.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-lg">
+        <div class="feature-card">
+          <div class="feature-icon">W</div>
+          <h3 class="text-display-sm mb-2">Instant Word Count</h3>
+          <p class="text-body-sm text-body">See your word count update in real time as you type. No buttons to click, no page reloads.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">¶</div>
+          <h3 class="text-display-sm mb-2">Deep Text Analysis</h3>
+          <p class="text-body-sm text-body">Characters, sentences, paragraphs, lines, unique words, and average word length at a glance.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⏱</div>
+          <h3 class="text-display-sm mb-2">Reading & Speaking Time</h3>
+          <p class="text-body-sm text-body">Know how long your text takes to read or speak aloud. Perfect for presentations and scripts.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔑</div>
+          <h3 class="text-display-sm mb-2">Keyword Density</h3>
+          <p class="text-body-sm text-body">Track your most used keywords and their density. Avoid overused words and improve SEO.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📖</div>
+          <h3 class="text-display-sm mb-2">Readability Score</h3>
+          <p class="text-body-sm text-body">Flesch-Kincaid reading ease score with grade level. Know who can read your writing effortlessly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3 class="text-display-sm mb-2">100% Private</h3>
+          <p class="text-body-sm text-body">Everything runs in your browser. Your text never leaves your device. No servers, no tracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-primary text-on-primary">
+    <div class="container-main py-5xl text-center">
+      <h2 class="text-display-lg text-balance text-on-primary mb-4">Start writing, we'll count the rest.</h2>
+      <p class="text-body-md text-on-primary/70 max-w-md mx-auto mb-6">
+        Free forever. No account needed. Just you and your words.
+      </p>
+      <a href="#tool" class="inline-flex items-center justify-center h-12 px-6 rounded-pill bg-on-primary text-ink text-button-lg font-medium no-underline hover:opacity-90 transition-opacity">
+        Try It Now
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .feature-card {
+    background: var(--color-canvas);
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: var(--shadow-level-2);
+    transition: box-shadow 0.2s;
+  }
+  .feature-card:hover {
+    box-shadow: var(--shadow-level-3);
+  }
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--color-canvas-soft-2);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+</style>
