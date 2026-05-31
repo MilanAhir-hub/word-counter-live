@@ -1,0 +1,617 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Text Analytics & SEO Tool | WordCounter"
+  description="Deep text analytics, keyword density, reading level, and readability scores. Analyze your text for SEO and clarity instantly."
+>
+  <div class="analytics-page relative min-h-screen overflow-hidden py-12">
+    <!-- Fine Grid Pattern Overlay -->
+    <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+    
+    <!-- Atmospheric Spotlight -->
+    <div class="absolute inset-0 spotlight pointer-events-none"></div>
+
+    <!-- Premium Vercel-Style Atmospheric Glow Backdrop -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <!-- Layer 2: Subtle Ambient Gradient -->
+      <div class="hero-ambient-glow absolute inset-0"></div>
+      <!-- Layer 3: Faint Headline Accent Glow -->
+      <div class="hero-headline-accent absolute inset-0"></div>
+      <!-- Layer 1: Giant bottom-center glowing half-circle (subconsciously floating) -->
+      <div class="hero-bottom-glow"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="analytics-badge inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold mb-4 shadow-[0_1px_2px_rgba(0,0,0,0.02)] backdrop-blur-md transition-all duration-300">
+          <svg class="h-3 w-3 text-blue-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          Deep Analytics
+        </span>
+        <h1 class="analytics-title text-3xl md:text-5xl font-bold tracking-[-0.04em] mb-4">Advanced Text Analysis</h1>
+        <p class="analytics-description text-base md:text-lg leading-relaxed">Paste your text below to extract keyword densities, reading levels, syllable counts, and SEO metrics in real-time.</p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Input Area -->
+        <div class="lg:col-span-2 flex flex-col">
+          <div class="workspace-panel overflow-hidden flex flex-col h-full min-h-[500px] transition-all duration-300">
+            <div class="workspace-header border-b px-5 py-3.5 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="dot bg-red-400/80"></span>
+                <span class="dot bg-amber-400/80"></span>
+                <span class="dot bg-emerald-400/80"></span>
+                <span class="text-xs font-mono font-medium tracking-wide ml-3 workspace-header-title">draft_analysis.txt</span>
+              </div>
+              <button id="btn-clear" class="btn-clear text-xs font-semibold px-3 py-1 rounded transition-all duration-200 cursor-pointer">Clear Text</button>
+            </div>
+            <textarea id="analyzer-input" class="w-full flex-1 p-6 bg-transparent resize-none focus:outline-none leading-relaxed font-sans workspace-textarea" placeholder="Paste your article, essay, or draft here to analyze..."></textarea>
+          </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="space-y-6">
+          <!-- Overview Cards -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="metric-card p-5 text-center transition-all duration-300">
+              <span class="metric-label block text-[10px] uppercase tracking-wider font-bold mb-1">Words</span>
+              <span id="res-words" class="metric-value block text-3xl font-black">0</span>
+            </div>
+            <div class="metric-card p-5 text-center transition-all duration-300">
+              <span class="metric-label block text-[10px] uppercase tracking-wider font-bold mb-1">Characters</span>
+              <span id="res-chars" class="metric-value block text-3xl font-black">0</span>
+            </div>
+            <div class="metric-card p-5 text-center transition-all duration-300">
+              <span class="metric-label block text-[10px] uppercase tracking-wider font-bold mb-1">Sentences</span>
+              <span id="res-sentences" class="metric-value block text-3xl font-black">0</span>
+            </div>
+            <div class="metric-card p-5 text-center transition-all duration-300">
+              <span class="metric-label block text-[10px] uppercase tracking-wider font-bold mb-1">Paragraphs</span>
+              <span id="res-paragraphs" class="metric-value block text-3xl font-black">0</span>
+            </div>
+          </div>
+
+          <!-- Readability Card -->
+          <div class="panel-card p-5 transition-all duration-300">
+            <h3 class="panel-card-title text-sm font-bold border-b pb-2 mb-4">Readability Index</h3>
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span id="res-flesch-score" class="readability-score text-3xl font-black">0</span>
+                <span class="metric-label text-xs block mt-1">Flesch Reading Ease</span>
+              </div>
+              <div class="text-right">
+                <span id="res-flesch-grade" class="readability-grade text-lg font-bold">N/A</span>
+                <span class="metric-label text-xs block mt-1">Grade Level</span>
+              </div>
+            </div>
+            <div class="w-full progress-track rounded-full h-2 overflow-hidden">
+              <div id="res-flesch-bar" class="progress-bar-fill h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between text-[9px] metric-label mt-1.5 uppercase font-bold tracking-wider">
+              <span>Hard</span>
+              <span>Easy</span>
+            </div>
+          </div>
+
+          <!-- Time Metrics Card -->
+          <div class="panel-card p-5 transition-all duration-300">
+            <h3 class="panel-card-title text-sm font-bold border-b pb-2 mb-4">Time Estimations</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center">
+                <span class="text-sm panel-text flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  Reading Speed <span class="text-[10px] opacity-65 font-mono">(225 wpm)</span>
+                </span>
+                <span id="res-read-time" class="font-mono text-sm font-semibold panel-val">0m 0s</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm panel-text flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                  Speaking Speed <span class="text-[10px] opacity-65 font-mono">(130 wpm)</span>
+                </span>
+                <span id="res-speak-time" class="font-mono text-sm font-semibold panel-val">0m 0s</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keyword Density Full Section -->
+      <div class="mt-8 panel-card p-6 transition-all duration-300">
+        <div class="flex items-center justify-between border-b pb-4 mb-6">
+          <h2 class="text-lg font-bold panel-card-title">Keyword Density Analysis</h2>
+          <span class="text-xs text-neutral-400 font-mono">Excludes common stop words</span>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- 1 Word -->
+          <div class="keyword-col p-4 rounded-lg border transition-all duration-300">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-500 mb-4 border-b pb-1.5 border-neutral-100 dark:border-neutral-800">1-Word Phrases</h3>
+            <div id="keywords-1" class="space-y-3">
+              <div class="text-xs text-neutral-400 italic">Enter text to generate keywords...</div>
+            </div>
+          </div>
+          
+          <!-- 2 Words -->
+          <div class="keyword-col p-4 rounded-lg border transition-all duration-300">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-500 mb-4 border-b pb-1.5 border-neutral-100 dark:border-neutral-800">2-Word Phrases</h3>
+            <div id="keywords-2" class="space-y-3">
+              <div class="text-xs text-neutral-400 italic">Enter text to generate keywords...</div>
+            </div>
+          </div>
+
+          <!-- 3 Words -->
+          <div class="keyword-col p-4 rounded-lg border transition-all duration-300">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-violet-500 mb-4 border-b pb-1.5 border-neutral-100 dark:border-neutral-800">3-Word Phrases</h3>
+            <div id="keywords-3" class="space-y-3">
+              <div class="text-xs text-neutral-400 italic">Enter text to generate keywords...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('analyzer-input');
+    const clearBtn = document.getElementById('btn-clear');
+
+    const stopWords = new Set(["a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't", "as", "at", "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "can't", "cannot", "could", "couldn't", "did", "didn't", "do", "does", "doesn't", "doing", "don't", "down", "during", "each", "few", "for", "from", "further", "had", "hadn't", "has", "hasn't", "have", "haven't", "having", "he", "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself", "him", "himself", "his", "how", "how's", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is", "isn't", "it", "it's", "its", "itself", "let's", "me", "more", "most", "mustn't", "my", "myself", "no", "nor", "not", "of", "off", "on", "once", "only", "or", "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "shan't", "she", "she'd", "she'll", "she's", "should", "shouldn't", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs", "them", "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're", "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "wasn't", "we", "we'd", "we'll", "we're", "we've", "were", "weren't", "what", "what's", "when", "when's", "where", "where's", "which", "while", "who", "who's", "whom", "why", "why's", "with", "won't", "would", "wouldn't", "you", "you'd", "you'll", "you're", "you've", "your", "yours", "yourself", "yourselves"]);
+
+    function getNGrams(wordsArray, n) {
+      const ngrams = {};
+      for (let i = 0; i <= wordsArray.length - n; i++) {
+        let skip = false;
+        const phrase = [];
+        for (let j = 0; j < n; j++) {
+          const w = wordsArray[i + j].toLowerCase();
+          if (n === 1 && stopWords.has(w)) {
+            skip = true;
+          }
+          phrase.push(w);
+        }
+        if (!skip) {
+          const key = phrase.join(' ');
+          if (key.length > 2) {
+            ngrams[key] = (ngrams[key] || 0) + 1;
+          }
+        }
+      }
+      return Object.entries(ngrams)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+    }
+
+    function renderKeywords(containerId, ngrams, totalWords) {
+      const container = document.getElementById(containerId);
+      if (ngrams.length === 0) {
+        container.innerHTML = '<div class="text-xs text-neutral-400 italic">Not enough data...</div>';
+        return;
+      }
+      container.innerHTML = ngrams.map(([word, count]) => {
+        const pct = ((count / totalWords) * 100).toFixed(1);
+        const barWidth = Math.min(100, Math.max(5, (count / ngrams[0][1]) * 100));
+        return `
+          <div class="group">
+            <div class="flex justify-between text-xs keyword-item-header mb-1">
+              <span class="font-medium truncate pr-2 keyword-word" title="${word}">${word}</span>
+              <div class="flex items-center gap-2 keyword-metrics font-mono">
+                <span>${count}</span>
+                <span class="w-8 text-right opacity-60">${pct}%</span>
+              </div>
+            </div>
+            <div class="h-1.5 w-full rounded-full progress-track overflow-hidden">
+              <div class="h-full rounded-full progress-bar-fill transition-all duration-500" style="width: ${barWidth}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function analyze() {
+      let text = input.value;
+      if (text.endsWith('\n')) text = text.slice(0, -1);
+
+      const chars = text.length;
+      const wordsArray = text.trim().split(/\s+/).filter(w => w.length > 0);
+      const words = wordsArray.length;
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+      const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+
+      document.getElementById('res-words').textContent = words;
+      document.getElementById('res-chars').textContent = chars;
+      document.getElementById('res-sentences').textContent = sentences;
+      document.getElementById('res-paragraphs').textContent = paragraphs;
+
+      // Time
+      const rSec = Math.ceil((words / 225) * 60);
+      document.getElementById('res-read-time').textContent = `${Math.floor(rSec/60)}m ${rSec%60}s`;
+      const sSec = Math.ceil((words / 130) * 60);
+      document.getElementById('res-speak-time').textContent = `${Math.floor(sSec/60)}m ${sSec%60}s`;
+
+      // Readability
+      let fleschScore = 0;
+      let grade = 'N/A';
+      if (words > 0) {
+        fleschScore = Math.max(0, Math.min(100, Math.round(90 - 10 * (words / (sentences || 1)) + 5 * (chars / (words || 1)))));
+        if (fleschScore >= 90) grade = '5th Grade';
+        else if (fleschScore >= 80) grade = '6th Grade';
+        else if (fleschScore >= 70) grade = '7th Grade';
+        else if (fleschScore >= 60) grade = '8-9th Grade';
+        else if (fleschScore >= 50) grade = 'High School';
+        else grade = 'College Level';
+      }
+      
+      document.getElementById('res-flesch-score').textContent = fleschScore;
+      document.getElementById('res-flesch-grade').textContent = grade;
+      document.getElementById('res-flesch-bar').style.width = `${fleschScore}%`;
+
+      // Keywords
+      if (words > 2) {
+        const cleanWords = text.replace(/[^\w\s']/g, ' ').split(/\s+/).filter(w => w.length > 0);
+        renderKeywords('keywords-1', getNGrams(cleanWords, 1), words);
+        renderKeywords('keywords-2', getNGrams(cleanWords, 2), words);
+        renderKeywords('keywords-3', getNGrams(cleanWords, 3), words);
+      } else {
+        ['keywords-1', 'keywords-2', 'keywords-3'].forEach(id => {
+          document.getElementById(id).innerHTML = '<div class="text-xs text-neutral-400 italic">Enter more text...</div>';
+        });
+      }
+    }
+
+    input.addEventListener('input', analyze);
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      analyze();
+    });
+    
+    // Check local storage for draft to seed
+    const draft = localStorage.getItem('word_counter_live_draft');
+    if (draft && draft.length > 0) {
+      input.value = draft;
+      analyze();
+    }
+  });
+</script>
+
+<style>
+  /* Base Layout Styles */
+  .analytics-page {
+    background-color: #fafafa;
+    color: #171717;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  :global(html[data-theme="dark"]) .analytics-page {
+    background-color: #000000;
+    color: #f4f4f5;
+  }
+
+  /* Fine Dot/Grid Background overlay */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 80%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 80%, transparent 100%);
+    opacity: 0.8;
+  }
+  :global(html[data-theme="dark"]) .grid-bg {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    opacity: 0.9;
+  }
+
+  /* Center top spotlight glow */
+  .spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 0, 0, 0.01), transparent);
+  }
+  :global(html[data-theme="dark"]) .spotlight {
+    background: radial-gradient(ellipse 85% 60% at 50% -10%, rgba(139, 92, 246, 0.08), rgba(99, 102, 241, 0.04) 50%, transparent 100%);
+  }
+
+  /* Ambient Glow Layers */
+  .hero-ambient-glow {
+    background: radial-gradient(circle at 50% 40%, rgba(99, 102, 241, 0.01) 0%, transparent 80%);
+    transition: background 0.3s ease;
+  }
+  :global(html[data-theme="dark"]) .hero-ambient-glow {
+    background: radial-gradient(circle at 50% 45%, rgba(99, 102, 241, 0.02) 0%, rgba(59, 130, 246, 0.01) 50%, transparent 90%);
+  }
+
+  .hero-headline-accent {
+    background: radial-gradient(circle at 50% 25%, rgba(139, 92, 246, 0.01) 0%, transparent 60%);
+    filter: blur(50px);
+    transition: background 0.3s ease;
+  }
+  :global(html[data-theme="dark"]) .hero-headline-accent {
+    background: radial-gradient(circle at 50% 25%, rgba(139, 92, 246, 0.03) 0%, rgba(59, 130, 246, 0.02) 35%, transparent 65%);
+    filter: blur(70px);
+  }
+
+  /* Giant bottom-center glowing half-circle (Full Screen Width) */
+  .hero-bottom-glow {
+    position: absolute;
+    bottom: 120px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 700px;
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 100%,
+      rgba(99, 102, 241, 0.2) 0%,
+      rgba(59, 130, 246, 0.1) 35%,
+      rgba(139, 92, 246, 0.04) 65%,
+      transparent 100%
+    );
+    filter: blur(80px);
+    opacity: 0.85;
+    will-change: transform;
+    animation: floating-glow 22s ease-in-out infinite alternate;
+    transition: background 0.3s ease, filter 0.3s ease;
+  }
+  :global(html[data-theme="dark"]) .hero-bottom-glow {
+    background: radial-gradient(
+      ellipse 85% 65% at 50% 100%,
+      rgba(99, 102, 241, 0.45) 0%,
+      rgba(59, 130, 246, 0.3) 30%,
+      rgba(139, 92, 246, 0.12) 60%,
+      transparent 100%
+    );
+    filter: blur(120px);
+    opacity: 0.9;
+  }
+
+  @keyframes floating-glow {
+    0% { transform: translateY(1%) scaleY(0.98); }
+    50% { transform: translateY(-1%) scaleY(1.02); }
+    100% { transform: translateY(0%) scaleY(0.97); }
+  }
+
+  /* Typography / Header Styles */
+  .analytics-badge {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    color: #2563eb;
+  }
+  :global(html[data-theme="dark"]) .analytics-badge {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #a1a1aa;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .analytics-title {
+    color: #171717;
+  }
+  :global(html[data-theme="dark"]) .analytics-title {
+    background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.65) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .analytics-description {
+    color: #52525b;
+  }
+  :global(html[data-theme="dark"]) .analytics-description {
+    color: #a1a1aa;
+  }
+
+  /* Workspace Editor Console Panel */
+  .workspace-panel {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
+  }
+  .workspace-panel:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+  }
+  :global(html[data-theme="dark"]) .workspace-panel {
+    background: #09090b;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 20px 50px rgba(0, 0, 0, 0.6), 
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  :global(html[data-theme="dark"]) .workspace-panel:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 24px 60px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .workspace-header {
+    background: rgba(0, 0, 0, 0.01);
+    border-color: rgba(0, 0, 0, 0.06);
+  }
+  :global(html[data-theme="dark"]) .workspace-header {
+    background: #0c0c0f;
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .dot {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 9999px;
+  }
+
+  .workspace-header-title {
+    color: #71717a;
+  }
+  :global(html[data-theme="dark"]) .workspace-header-title {
+    color: #52525b;
+  }
+
+  .workspace-textarea {
+    color: #3f3f46;
+  }
+  :global(html[data-theme="dark"]) .workspace-textarea {
+    color: #d4d4d8;
+  }
+
+  .btn-clear {
+    background: rgba(244, 63, 94, 0.08);
+    border: 1px solid rgba(244, 63, 94, 0.15);
+    color: #e11d48;
+  }
+  .btn-clear:hover {
+    background: rgba(244, 63, 94, 0.15);
+    transform: translateY(-0.5px);
+  }
+  :global(html[data-theme="dark"]) .btn-clear {
+    background: rgba(244, 63, 94, 0.05);
+    border: 1px solid rgba(244, 63, 94, 0.15);
+    color: #fb7185;
+  }
+  :global(html[data-theme="dark"]) .btn-clear:hover {
+    background: rgba(244, 63, 94, 0.12);
+    border-color: rgba(244, 63, 94, 0.3);
+  }
+
+  /* Metric Cards */
+  .metric-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+  .metric-card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+  :global(html[data-theme="dark"]) .metric-card {
+    background: #09090b;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  :global(html[data-theme="dark"]) .metric-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .metric-label {
+    color: #71717a;
+  }
+  :global(html[data-theme="dark"]) .metric-label {
+    color: #a1a1aa;
+  }
+
+  .metric-value {
+    color: #171717;
+  }
+  :global(html[data-theme="dark"]) .metric-value {
+    color: #ffffff;
+  }
+
+  /* Panel Cards (Readability / Time Metrics / Keyword Container) */
+  .panel-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+  .panel-card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+  :global(html[data-theme="dark"]) .panel-card {
+    background: #09090b;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  :global(html[data-theme="dark"]) .panel-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .panel-card-title {
+    color: #171717;
+    border-color: rgba(0, 0, 0, 0.06);
+  }
+  :global(html[data-theme="dark"]) .panel-card-title {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .readability-score {
+    color: #2563eb;
+  }
+  :global(html[data-theme="dark"]) .readability-score {
+    color: #3b82f6;
+  }
+
+  .readability-grade {
+    color: #27272a;
+  }
+  :global(html[data-theme="dark"]) .readability-grade {
+    color: #e4e4e7;
+  }
+
+  .panel-text {
+    color: #52525b;
+  }
+  :global(html[data-theme="dark"]) .panel-text {
+    color: #a1a1aa;
+  }
+
+  .panel-val {
+    color: #171717;
+  }
+  :global(html[data-theme="dark"]) .panel-val {
+    color: #ffffff;
+  }
+
+  /* Tracks and Bars */
+  .progress-track {
+    background-color: #f4f4f5;
+  }
+  :global(html[data-theme="dark"]) .progress-track {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .progress-bar-fill {
+    background: linear-gradient(90deg, #6366f1 0%, #3b82f6 100%);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  }
+  :global(html[data-theme="dark"]) .progress-bar-fill {
+    background: linear-gradient(90deg, #8b5cf6 0%, #6366f1 50%, #3b82f6 100%);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+  }
+
+  /* Keywords Columns and Dynamically Rendered Elements */
+  .keyword-col {
+    background: rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  :global(html[data-theme="dark"]) .keyword-col {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  :global(.keyword-word) {
+    color: #27272a;
+  }
+  :global(html[data-theme="dark"] .keyword-word) {
+    color: #e4e4e7;
+  }
+
+  :global(.keyword-metrics) {
+    color: #71717a;
+  }
+  :global(html[data-theme="dark"] .keyword-metrics) {
+    color: #a1a1aa;
+  }
+</style>

@@ -1,121 +1,1313 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import NavBar from '../components/NavBar.astro';
-import WordCounter from '../components/WordCounter.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<Layout>
-  <NavBar />
+<BaseLayout>
+  <!-- Hero Section with Mesh Gradient -->
+  <section class="hero-section relative overflow-hidden pb-24 pt-20 border-b">
+    <!-- Fine Grid Pattern Overlay -->
+    <div class="absolute inset-0 grid-bg pointer-events-none opacity-[0.03] dark:opacity-[0.05]"></div>
+    
+    <!-- Atmospheric Spotlight -->
+    <div class="absolute inset-0 spotlight pointer-events-none"></div>
 
-  <!-- Hero -->
-  <section class="mesh-gradient relative overflow-hidden">
-    <div class="container-main py-5xl sm:py-section text-center">
-      <div class="max-w-3xl mx-auto">
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-canvas text-caption text-body border border-hairline mb-4">
-          Free Online Tool — No sign-up required
-        </span>
-        <h1 class="text-display-xl text-balance mb-4">
-          Count words, not problems.
-        </h1>
-        <p class="text-body-lg text-body max-w-xl mx-auto text-balance">
-          The fast, privacy-first word counter. Type or paste your text below and get instant stats — words, characters, sentences, reading time, and more.
-        </p>
-      </div>
+    <!-- Premium Vercel-Style Atmospheric Glow Backdrop -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <!-- Layer 2: Subtle Ambient Gradient -->
+      <div class="hero-ambient-glow absolute inset-0"></div>
+      <!-- Layer 3: Faint Headline Accent Glow -->
+      <div class="hero-headline-accent absolute inset-0"></div>
+      <!-- Layer 1: Giant bottom-center glowing half-circle (subconsciously floating) -->
+      <div class="hero-bottom-glow"></div>
     </div>
-    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-hairline to-transparent" />
-  </section>
 
-  <!-- Tool Section -->
-  <section id="tool" class="container-main -mt-16 sm:-mt-24 pb-5xl relative z-10">
-    <WordCounter />
-  </section>
-
-  <!-- Features -->
-  <section id="features" class="bg-canvas border-t border-hairline">
-    <div class="container-main py-5xl">
-      <div class="text-center mb-4xl">
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-canvas-soft text-caption text-body border border-hairline mb-3">
-          Everything you need
-        </span>
-        <h2 class="text-display-lg text-balance">Know your writing inside out.</h2>
-        <p class="text-body-md text-body max-w-lg mx-auto mt-3">
-          Real-time analytics that help you write better, track progress, and hit your goals.
-        </p>
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8 text-center z-10">
+      <!-- Badge -->
+      <div class="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium shadow-[0_1px_2px_rgba(0,0,0,0.02)] backdrop-blur-md transition-all duration-300">
+        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-mono uppercase tracking-wider text-[10px] font-semibold">✨ Free Forever • No Login Required</span>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-lg">
-        <div class="feature-card">
-          <div class="feature-icon">W</div>
-          <h3 class="text-display-sm mb-2">Instant Word Count</h3>
-          <p class="text-body-sm text-body">See your word count update in real time as you type. No buttons to click, no page reloads.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">¶</div>
-          <h3 class="text-display-sm mb-2">Deep Text Analysis</h3>
-          <p class="text-body-sm text-body">Characters, sentences, paragraphs, lines, unique words, and average word length at a glance.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">⏱</div>
-          <h3 class="text-display-sm mb-2">Reading & Speaking Time</h3>
-          <p class="text-body-sm text-body">Know how long your text takes to read or speak aloud. Perfect for presentations and scripts.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔑</div>
-          <h3 class="text-display-sm mb-2">Keyword Density</h3>
-          <p class="text-body-sm text-body">Track your most used keywords and their density. Avoid overused words and improve SEO.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📖</div>
-          <h3 class="text-display-sm mb-2">Readability Score</h3>
-          <p class="text-body-sm text-body">Flesch-Kincaid reading ease score with grade level. Know who can read your writing effortlessly.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <h3 class="text-display-sm mb-2">100% Private</h3>
-          <p class="text-body-sm text-body">Everything runs in your browser. Your text never leaves your device. No servers, no tracking.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <!-- Heading -->
+      <h1 class="hero-title mx-auto mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl md:text-7xl leading-[1.05] text-balance">
+        Write better.<br class="hidden sm:inline" /> Analyze smarter.
+      </h1>
 
-  <!-- CTA Section -->
-  <section class="bg-primary text-on-primary">
-    <div class="container-main py-5xl text-center">
-      <h2 class="text-display-lg text-balance text-on-primary mb-4">Start writing, we'll count the rest.</h2>
-      <p class="text-body-md text-on-primary/70 max-w-md mx-auto mb-6">
-        Free forever. No account needed. Just you and your words.
+      <!-- Description -->
+      <p class="hero-description mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-balance">
+        Word count, readability, grammar, keyword analysis, and AI writing tools — all in one clean, privacy-first workplace.
       </p>
-      <a href="#tool" class="inline-flex items-center justify-center h-12 px-6 rounded-pill bg-on-primary text-ink text-button-lg font-medium no-underline hover:opacity-90 transition-opacity">
-        Try It Now
-      </a>
+
+      <!-- Action Buttons -->
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/editor"
+          class="btn-primary inline-flex h-11 items-center justify-center rounded-md px-6 text-sm font-medium transition-all duration-150"
+        >
+          Start Writing
+        </a>
+        <a
+          href="#features"
+          class="btn-secondary inline-flex h-11 items-center justify-center rounded-md px-6 text-sm font-medium transition-all duration-150"
+        >
+          Explore Features
+        </a>
+      </div>
+
+      <!-- High-Fidelity Interactive Mockup -->
+      <div class="mockup-container relative mx-auto mt-16 max-w-5xl rounded-xl border overflow-hidden transition-all duration-300">
+        <!-- Mock Window Bar -->
+        <div class="mockup-header flex items-center justify-between border-b px-4 py-3">
+          <div class="flex items-center gap-1.5">
+            <span class="dot-btn bg-red-400/80"></span>
+            <span class="dot-btn bg-amber-400/80"></span>
+            <span class="dot-btn bg-emerald-400/80"></span>
+            <span class="ml-4 font-mono text-xs file-name">draft_essay_final.txt</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="badge-autosave rounded px-2 py-0.5 font-mono text-[10px] font-semibold">AUTOSAVED</span>
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          </div>
+        </div>
+
+        <!-- Mock Workspace Panel Grid -->
+        <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x mockup-grid">
+          <!-- Editor Area (Left 2 Columns) -->
+          <div class="md:col-span-2 p-6 text-left min-h-[320px] flex flex-col justify-between mockup-editor">
+            <div class="font-sans text-sm editor-text leading-relaxed space-y-4">
+              <p>Designing a high-conversion SaaS hero section requires a delicate balance of clarity, brand voice, and absolute visual excellence.</p>
+              <p>When writers type their drafts, they expect a seamless interface that never gets in the way of their creativity. Real-time statistics should update silently in the background, offering helpful insights like readability scores, tone, and sentence complexity metrics.</p>
+              <p>Our goal is to build a beautiful writing companion that guarantees privacy. By running all processing locally inside the browser, your words never touch external servers. It is elegant, secure, and blazing fast.<span class="cursor-blink inline-block w-1.5 h-4 ml-0.5 bg-neutral-900 dark:bg-white align-middle"></span></p>
+            </div>
+            <div class="mt-8 pt-4 border-t editor-footer flex items-center justify-between text-xs font-mono">
+              <span>Lines: 12  •  Paragraphs: 3</span>
+              <span>UTF-8  •  English (US)</span>
+            </div>
+          </div>
+
+          <!-- Analytics Sidebar (Right 1 Column) -->
+          <div class="p-6 text-left space-y-6 mockup-sidebar">
+            <div>
+              <h3 class="font-mono text-[11px] font-bold uppercase tracking-wider sidebar-title mb-3">Live Metrics</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="metric-card rounded-lg border p-3">
+                  <span class="block text-xs font-medium metric-label">Words</span>
+                  <span class="mt-1 block text-2xl font-bold font-sans tracking-tight metric-val">108</span>
+                </div>
+                <div class="metric-card rounded-lg border p-3">
+                  <span class="block text-xs font-medium metric-label">Characters</span>
+                  <span class="mt-1 block text-2xl font-bold font-sans tracking-tight metric-val">724</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Readability & Time -->
+            <div class="space-y-3 pt-2 border-t sidebar-divider">
+              <div class="flex items-center justify-between">
+                <span class="text-xs sidebar-text">Readability (Flesch)</span>
+                <span class="rounded bg-cyan-50 dark:bg-cyan-950/40 px-2 py-0.5 text-xs font-semibold text-cyan-700 dark:text-cyan-400">76.4 (Easy)</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs sidebar-text">Grade Level</span>
+                <span class="text-xs font-medium sidebar-val">8th Grade</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs sidebar-text">Reading Time</span>
+                <span class="text-xs font-medium sidebar-val">~26 seconds</span>
+              </div>
+            </div>
+
+            <!-- Keyword Density -->
+            <div class="pt-3 border-t sidebar-divider space-y-2.5">
+              <h4 class="font-mono text-[10px] font-bold uppercase tracking-wider sidebar-title">Top Keywords</h4>
+              <div class="space-y-2">
+                <div>
+                  <div class="flex justify-between text-xs sidebar-text mb-1">
+                    <span class="sidebar-val">writing</span>
+                    <span class="font-mono opacity-80">4.2%</span>
+                  </div>
+                  <div class="h-1.5 w-full rounded-full progress-bg overflow-hidden">
+                    <div class="h-full rounded-full progress-bar-active" style="width: 85%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs sidebar-text mb-1">
+                    <span class="sidebar-val">privacy</span>
+                    <span class="font-mono opacity-80">2.8%</span>
+                  </div>
+                  <div class="h-1.5 w-full rounded-full progress-bg overflow-hidden">
+                    <div class="h-full rounded-full progress-bar-secondary" style="width: 58%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Badges Checkmarks Row -->
+      <div class="mt-16 border-t trust-divider pt-10">
+        <div class="mx-auto max-w-3xl grid grid-cols-2 sm:grid-cols-4 gap-y-4 gap-x-8 text-center justify-items-center">
+          <div class="flex items-center gap-2 text-sm font-medium trust-item">
+            <svg class="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <span>Free Forever</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm font-medium trust-item">
+            <svg class="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <span>Auto Save</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm font-medium trust-item">
+            <svg class="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <span>Privacy First</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm font-medium trust-item">
+            <svg class="h-4 w-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <span>No Sign Up</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <Footer />
-</Layout>
+  <!-- Features Section -->
+  <section id="features" class="bg-neutral-50/50 py-24 border-t border-neutral-100 relative">
+    <!-- Subtle Background Dot pattern -->
+    <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40 pointer-events-none"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8 z-10">
+      <!-- Section Heading -->
+      <div class="mx-auto max-w-3xl text-center mb-16">
+        <span class="font-mono uppercase tracking-wider text-[10px] font-bold text-neutral-400 bg-neutral-100/80 px-2.5 py-1 rounded-full">Features Overview</span>
+        <h2 class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-neutral-900 sm:text-4xl">Everything you need to write your best.</h2>
+        <p class="mt-4 text-base text-neutral-500">
+          Professional utilities and analytics built natively in a fast, privacy-first interface.
+        </p>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1: Real-Time Analytics -->
+        <div class="group relative rounded-xl border border-neutral-200/80 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 transition-colors duration-300 group-hover:bg-indigo-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+              <g fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" d="M7 17v-4m5 4V7m5 10v-6"/>
+                <path stroke-linejoin="round" d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12Z"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold text-neutral-900">Real-Time Analytics</h3>
+          <p class="mt-2 text-sm text-neutral-500 leading-relaxed">
+            Word, character, sentence, and paragraph counts updated instantly as you type.
+          </p>
+        </div>
+
+        <!-- Feature 2: AI Writing Assistant -->
+        <div class="group relative rounded-xl border border-neutral-200/80 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-violet-50 text-violet-600 transition-colors duration-300 group-hover:bg-violet-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+              <path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m15 2l.539 2.392a5.39 5.39 0 0 0 4.07 4.07L22 9l-2.392.539a5.39 5.39 0 0 0-4.07 4.07L15 16l-.539-2.392a5.39 5.39 0 0 0-4.07-4.07L8 9l2.392-.539a5.39 5.39 0 0 0 4.07-4.07zM7 12l.385 1.708a3.85 3.85 0 0 0 2.907 2.907L12 17l-1.708.385a3.85 3.85 0 0 0-2.907 2.907L7 22l-.385-1.708a3.85 3.85 0 0 0-2.907-2.907L2 17l1.708-.385a3.85 3.85 0 0 0 2.907-2.907z"/>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold text-neutral-900">AI Writing Assistant</h3>
+          <p class="mt-2 text-sm text-neutral-500 leading-relaxed">
+            Rewrite paragraphs, fix grammar errors, and improve clarity with smart AI actions.
+          </p>
+        </div>
+
+        <!-- Feature 3: Keyword Density -->
+        <div class="group relative rounded-xl border border-neutral-200/80 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 transition-colors duration-300 group-hover:bg-emerald-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m17 17l4 4m-2-10a8 8 0 1 0-16 0a8 8 0 0 0 16 0"/>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold text-neutral-900">Keyword Density</h3>
+          <p class="mt-2 text-sm text-neutral-500 leading-relaxed">
+            Identify overused words and phrases to optimize your writing structure and SEO.
+          </p>
+        </div>
+
+        <!-- Feature 4: Readability Analysis -->
+        <div class="group relative rounded-xl border border-neutral-200/80 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 transition-colors duration-300 group-hover:bg-cyan-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.333 3c2.46-.003 4.836.887 6.667 2.5V21a10.07 10.07 0 0 0-6.667-2.5c-1.562 0-2.343 0-2.688-.22a1.16 1.16 0 0 1-.424-.425C2 17.51 2 16.895 2 15.663v-9.26c0-1.428 0-2.141.549-2.72c.548-.579 1.11-.609 2.234-.668Q5.056 3 5.333 3m13.334 0A10.07 10.07 0 0 0 12 5.5V21a10.07 10.07 0 0 1 6.667-2.5c1.562 0 2.343 0 2.688-.22c.207-.133.291-.218.424-.425c.221-.345.221-.96.221-2.192v-9.26c0-1.428 0-2.141-.549-2.72s-1.11-.609-2.234-.668Q18.944 3 18.667 3"/>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold text-neutral-900">Readability Analysis</h3>
+          <p class="mt-2 text-sm text-neutral-500 leading-relaxed">
+            Understand how easy your content is to read with automatic Flesch grade scoring.
+          </p>
+        </div>
+
+        <!-- Feature 5: Built-in Dictionary -->
+        <div class="group relative rounded-xl border border-neutral-200/80 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600 transition-colors duration-300 group-hover:bg-amber-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path d="M15.5 7h-7m3.999 4h-4M20 22H6a2 2 0 0 1-2-2m0 0a2 2 0 0 1 2-2h14V6c0-1.886 0-2.828-.586-3.414S17.886 2 16 2h-6c-2.828 0-4.243 0-5.121.879C4 3.757 4 5.172 4 8z"/>
+                <path d="M19.5 18s-1 .763-1 2s1 2 1 2"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold text-neutral-900">Built-in Dictionary</h3>
+          <p class="mt-2 text-sm text-neutral-500 leading-relaxed">
+            Discover better words instantly with definitions, synonyms, and antonyms to enhance expression.
+          </p>
+        </div>
+
+        <!-- Feature 6: Writing Goals -->
+        <div class="group relative rounded-xl border border-neutral-200/80 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-rose-50 text-rose-600 transition-colors duration-300 group-hover:bg-rose-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5">
+              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
+                <path d="M15.131 2.5A10 10 0 0 0 12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10a10 10 0 0 0-.458-3"/>
+                <path stroke-linejoin="round" d="M17 12a5 5 0 1 1-5-5"/>
+                <path d="M19.5 4.5L12 12m7.5-7.5V2m0 2.5H22"/>
+              </g>
+            </svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold text-neutral-900">Writing Goals</h3>
+          <p class="mt-2 text-sm text-neutral-500 leading-relaxed">
+            Track your target progress, monitor word counts, and stay highly productive.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analytics Showcase Section -->
+  <section class="bg-white py-24 border-t border-neutral-100 text-neutral-900 relative overflow-hidden">
+    <!-- Atmospheric subtle mesh gradient for light theme -->
+    <div class="absolute inset-0 pointer-events-none opacity-40">
+      <div class="absolute bottom-[-100px] right-1/4 h-[400px] w-[500px] rounded-full bg-cyan-100/30 blur-[100px]"></div>
+      <div class="absolute bottom-[-80px] left-1/4 h-[450px] w-[450px] rounded-full bg-purple-100/30 blur-[110px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8 z-10">
+      <!-- Section Heading -->
+      <div class="mx-auto max-w-3xl text-center mb-16">
+        <span class="font-mono uppercase tracking-wider text-[10px] font-bold text-cyan-600 bg-cyan-50 border border-cyan-200/50 px-3 py-1 rounded-full">Analytics Showcase</span>
+        <h2 class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-neutral-900 sm:text-4xl">Highlight advanced features.</h2>
+        <p class="mt-4 text-base text-neutral-500">
+          Go beyond basic counting. Access real-time visual insights to elevate your writing style.
+        </p>
+      </div>
+
+      <!-- Showcase Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1: Keyword Density -->
+        <div class="group relative rounded-xl border border-neutral-200/85 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-350 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center gap-3">
+            <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100/50">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4.5 w-4.5">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m17 17l4 4m-2-10a8 8 0 1 0-16 0a8 8 0 0 0 16 0"/>
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold text-neutral-900">Keyword Density</h3>
+          </div>
+          
+          <!-- Mockup Visual -->
+          <div class="mt-5 rounded-lg bg-neutral-50 border border-neutral-100 p-3.5 space-y-3 font-mono text-[11px] text-neutral-500">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-neutral-700 font-medium">writing</span>
+                <span class="text-cyan-600 font-bold">3.2%</span>
+              </div>
+              <div class="h-1.5 w-full rounded-full bg-neutral-200/60 overflow-hidden">
+                <div class="h-full rounded-full bg-cyan-500" style="width: 80%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-neutral-700 font-medium">privacy</span>
+                <span class="text-neutral-500">2.1%</span>
+              </div>
+              <div class="h-1.5 w-full rounded-full bg-neutral-200/60 overflow-hidden">
+                <div class="h-full rounded-full bg-neutral-400" style="width: 52%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <p class="mt-4 text-xs text-neutral-500 leading-relaxed">
+            Monitor single and multi-word frequencies to optimize content flow and avoid word repetition.
+          </p>
+        </div>
+
+        <!-- Card 2: Readability Score -->
+        <div class="group relative rounded-xl border border-neutral-200/85 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-350 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center gap-3">
+            <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100/50">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4.5 w-4.5">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.333 3c2.46-.003 4.836.887 6.667 2.5V21a10.07 10.07 0 0 0-6.667-2.5c-1.562 0-2.343 0-2.688-.22a1.16 1.16 0 0 1-.424-.425C2 17.51 2 16.895 2 15.663v-9.26c0-1.428 0-2.141.549-2.72c.548-.579 1.11-.609 2.234-.668Q5.056 3 5.333 3m13.334 0A10.07 10.07 0 0 0 12 5.5V21a10.07 10.07 0 0 1 6.667-2.5c1.562 0 2.343 0 2.688-.22c.207-.133.291-.218.424-.425c.221-.345.221-.96.221-2.192v-9.26c0-1.428 0-2.141-.549-2.72s-1.11-.609-2.234-.668Q18.944 3 18.667 3"/>
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold text-neutral-900">Readability Score</h3>
+          </div>
+          
+          <!-- Mockup Visual -->
+          <div class="mt-5 rounded-lg bg-neutral-50 border border-neutral-100 p-3.5 flex items-center justify-between font-mono text-[11px] text-neutral-500">
+            <div>
+              <span class="block text-[10px] text-neutral-400 uppercase">Flesch Ease</span>
+              <span class="text-lg font-bold text-neutral-850 leading-none">78.4</span>
+              <span class="block text-[10px] text-emerald-600 font-medium">Easy to read</span>
+            </div>
+            <div class="text-right">
+              <span class="block text-[10px] text-neutral-400 uppercase">Grade level</span>
+              <span class="text-base font-semibold text-neutral-700">8th Grade</span>
+            </div>
+          </div>
+          
+          <p class="mt-4 text-xs text-neutral-500 leading-relaxed">
+            Get instant reading difficulty levels matching Flesch-Kincaid standards as you write.
+          </p>
+        </div>
+
+        <!-- Card 3: Flow Score -->
+        <div class="group relative rounded-xl border border-neutral-200/85 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-350 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center gap-3">
+            <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-100/50">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4.5 w-4.5">
+                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" d="M7 17v-4m5 4V7m5 10v-6"/>
+                  <path stroke-linejoin="round" d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12Z"/>
+                </g>
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold text-neutral-900">Flow Score</h3>
+          </div>
+          
+          <!-- Mockup Visual -->
+          <div class="mt-5 rounded-lg bg-neutral-50 border border-neutral-100 p-3.5 flex items-center justify-between font-mono text-[11px] text-neutral-500">
+            <div>
+              <span class="block text-[10px] text-neutral-400 uppercase">Coherence</span>
+              <span class="text-lg font-bold text-indigo-600 leading-none">94%</span>
+            </div>
+            <div class="text-right">
+              <span class="block text-[10px] text-neutral-400 uppercase">Sentence Variance</span>
+              <span class="text-xs font-semibold text-neutral-700">Excellent</span>
+            </div>
+          </div>
+          
+          <p class="mt-4 text-xs text-neutral-500 leading-relaxed">
+            Analyze sentence length variations and rhythm parameters to prevent monotonous flow structures.
+          </p>
+        </div>
+
+        <!-- Card 4: Content Health -->
+        <div class="group relative rounded-xl border border-neutral-200/85 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-350 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center gap-3">
+            <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-violet-50 text-violet-600 border border-violet-100/50">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4.5 w-4.5">
+                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.5 12.5l2 2l5-5"/>
+                </g>
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold text-neutral-900">Content Health</h3>
+          </div>
+          
+          <!-- Mockup Visual -->
+          <div class="mt-5 rounded-lg bg-neutral-50 border border-neutral-100 p-3.5 space-y-1.5 font-mono text-[10px] text-neutral-500">
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span class="text-neutral-700">0 Passive voice occurrences</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span class="text-neutral-700">Perfect adverb frequency (1.2%)</span>
+            </div>
+          </div>
+          
+          <p class="mt-4 text-xs text-neutral-500 leading-relaxed">
+            Monitor content sanity, filter redundant modifiers, and track complex structural patterns instantly.
+          </p>
+        </div>
+
+        <!-- Card 5: Reading Time -->
+        <div class="group relative rounded-xl border border-neutral-200/85 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-350 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center gap-3">
+            <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-amber-600 border border-amber-100/50">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4.5 w-4.5">
+                <g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2 2"/></g>
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold text-neutral-900">Reading Time</h3>
+          </div>
+          
+          <!-- Mockup Visual -->
+          <div class="mt-5 rounded-lg bg-neutral-50 border border-neutral-100 p-3.5 flex items-center justify-between font-mono text-[11px] text-neutral-500">
+            <div>
+              <span class="block text-[10px] text-neutral-400 uppercase">Estimated</span>
+              <span class="text-lg font-bold text-amber-600 leading-none">0m 26s</span>
+            </div>
+            <div class="text-right">
+              <span class="block text-[10px] text-neutral-400 uppercase">Speed config</span>
+              <span class="text-[10px] text-neutral-600 font-medium">250 WPM</span>
+            </div>
+          </div>
+          
+          <p class="mt-4 text-xs text-neutral-500 leading-relaxed">
+            Estimate how long your content will take to read, calculated dynamically at variable speed presets.
+          </p>
+        </div>
+
+        <!-- Card 6: Speaking Time -->
+        <div class="group relative rounded-xl border border-neutral-200/85 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.01)] transition-all duration-300 hover:-translate-y-1 hover:border-neutral-350 hover:shadow-[0_12px_24px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center gap-3">
+            <div class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-rose-50 text-rose-600 border border-rose-100/50">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4.5 w-4.5">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                  <path d="M12 3a4 4 0 0 0-4 4v5a4 4 0 0 0 8 0V7a4 4 0 0 0-4-4Z"/>
+                  <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v3m-4 0h8"/>
+                </g>
+              </svg>
+            </div>
+            <h3 class="text-base font-semibold text-neutral-900">Speaking Time</h3>
+          </div>
+          
+          <!-- Mockup Visual -->
+          <div class="mt-5 rounded-lg bg-neutral-50 border border-neutral-100 p-3.5 flex items-center justify-between font-mono text-[11px] text-neutral-500">
+            <div>
+              <span class="block text-[10px] text-neutral-400 uppercase">Estimated</span>
+              <span class="text-lg font-bold text-rose-600 leading-none">0m 39s</span>
+            </div>
+            <div class="text-right">
+              <span class="block text-[10px] text-neutral-400 uppercase">Speed config</span>
+              <span class="text-[10px] text-neutral-600 font-medium">130 WPM</span>
+            </div>
+          </div>
+          
+          <p class="mt-4 text-xs text-neutral-500 leading-relaxed">
+            Estimate reading speed aloud. Ideal for speech scripts, presentations, podcasting, and teleprompter drafts.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Assistant Showcase Section -->
+  <section class="ai-showcase-section bg-neutral-50/50 py-24 border-t border-neutral-100 dark:bg-black dark:border-neutral-800 relative overflow-hidden">
+    <!-- Atmospheric subtle mesh gradient -->
+    <div class="absolute inset-0 pointer-events-none opacity-50 dark:opacity-20">
+      <div class="absolute top-[-80px] left-1/3 h-[450px] w-[450px] rounded-full bg-violet-100/40 blur-[120px] dark:bg-violet-900/20"></div>
+      <div class="absolute bottom-[-100px] right-1/4 h-[400px] w-[500px] rounded-full bg-indigo-100/30 blur-[100px] dark:bg-indigo-900/20"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-8 z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Side: Copy and Details (5 Columns) -->
+        <div class="lg:col-span-5 space-y-6 text-left">
+          <span class="font-mono uppercase tracking-wider text-[10px] font-bold text-violet-600 bg-violet-50 border border-violet-200/50 px-3 py-1 rounded-full dark:bg-violet-950/30 dark:text-violet-400 dark:border-violet-500/20">AI Assistant Showcase</span>
+          <h2 class="text-3xl font-semibold tracking-[-0.03em] text-neutral-900 dark:text-white sm:text-4xl leading-tight">Refine your writing.<br />Instantly.</h2>
+          <p class="text-base text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            Eliminate weak vocabulary, fix hidden grammatical errors, and adjust the tone of your essays, articles, or scripts in one click.
+          </p>
+
+          <!-- Core Benefits -->
+          <ul class="space-y-3.5 text-sm text-neutral-600 dark:text-neutral-400">
+            <li class="flex items-center gap-3">
+              <span class="flex h-5 w-5 items-center justify-center rounded-full bg-violet-50 text-violet-600 border border-violet-100 dark:bg-violet-900/20 dark:text-violet-400 dark:border-violet-800">
+                <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              </span>
+              <span><strong class="text-neutral-900 dark:text-neutral-200">Grammar Corrections</strong>: Fix syntax and spelling silently.</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="flex h-5 w-5 items-center justify-center rounded-full bg-violet-50 text-violet-600 border border-violet-100 dark:bg-violet-900/20 dark:text-violet-400 dark:border-violet-800">
+                <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              </span>
+              <span><strong class="text-neutral-900 dark:text-neutral-200">Clarity Upgrades</strong>: Shorten wordy sentences automatically.</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="flex h-5 w-5 items-center justify-center rounded-full bg-violet-50 text-violet-600 border border-violet-100 dark:bg-violet-900/20 dark:text-violet-400 dark:border-violet-800">
+                <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+              </span>
+              <span><strong class="text-neutral-900 dark:text-neutral-200">Tone Adjustments</strong>: Switch between formal, casual, or persuasive.</span>
+            </li>
+          </ul>
+
+          <div class="pt-4">
+            <a
+              href="/editor"
+              class="inline-flex h-11 items-center justify-center rounded-md bg-neutral-900 px-6 text-sm font-medium text-white shadow-sm transition-all duration-150 hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200 hover:-translate-y-0.5"
+            >
+              Try AI Assistant Free
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side: Side-by-Side Before/After Cards (7 Columns) -->
+        <div class="lg:col-span-7 flex flex-col gap-4 relative">
+          <!-- Connector spark floating element in between -->
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/30 text-white animate-pulse">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" class="h-5 w-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+            </svg>
+          </div>
+
+          <!-- Original Draft Panel (Before) -->
+          <div class="rounded-xl border border-red-100 bg-white p-5 shadow-[0_4px_12px_rgba(0,0,0,0.01)] dark:bg-neutral-900/50 dark:border-red-900/20 text-left relative overflow-hidden">
+            <div class="flex items-center justify-between border-b border-neutral-50 dark:border-neutral-800 pb-3 mb-3.5">
+              <span class="font-mono text-[10px] font-bold text-red-500 tracking-wider uppercase">Original Draft</span>
+              <span class="rounded bg-red-50 px-2 py-0.5 font-mono text-[9px] font-semibold text-red-600 dark:bg-red-950/30 dark:text-red-400">30 Words • Wordy</span>
+            </div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-sans">
+              We are a <span class="bg-red-50 border-b border-dashed border-red-400 text-neutral-800 dark:bg-red-950/30 dark:text-neutral-200 dark:border-red-800 px-0.5 rounded">brand new platform</span> that does <span class="bg-red-50 border-b border-dashed border-red-400 text-neutral-800 dark:bg-red-950/30 dark:text-neutral-200 dark:border-red-800 px-0.5 rounded">really fast word counting</span> and also we help people write stuff better because it is <span class="bg-red-50 border-b border-dashed border-red-400 text-neutral-800 dark:bg-red-950/30 dark:text-neutral-200 dark:border-red-800 px-0.5 rounded">very easy and simple to use</span>.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2 text-[10px] font-mono text-neutral-400">
+              <span class="bg-red-50 text-red-500 dark:bg-red-950/30 dark:text-red-400 px-2 py-0.5 rounded">⚠️ Redundant adjectives</span>
+              <span class="bg-red-50 text-red-500 dark:bg-red-950/30 dark:text-red-400 px-2 py-0.5 rounded">⚠️ Weak passive voice</span>
+            </div>
+          </div>
+
+          <!-- AI Improved Version Panel (After) -->
+          <div class="rounded-xl border border-emerald-100 bg-white p-5 shadow-[0_8px_16px_rgba(0,0,0,0.02)] dark:bg-neutral-900/80 dark:border-emerald-900/20 text-left relative overflow-hidden">
+            <div class="flex items-center justify-between border-b border-neutral-50 dark:border-neutral-800 pb-3 mb-3.5">
+              <span class="font-mono text-[10px] font-bold text-emerald-600 tracking-wider uppercase">AI Improved Version</span>
+              <span class="rounded bg-emerald-50 px-2 py-0.5 font-mono text-[9px] font-semibold text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">14 Words • 53% More Concise</span>
+            </div>
+            <p class="text-sm text-neutral-800 dark:text-neutral-100 leading-relaxed font-sans">
+              An <span class="bg-emerald-50 border-b border-emerald-300 px-0.5 rounded font-medium dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-800">instant, privacy-first</span> word counter and editor engineered to help you write <span class="bg-emerald-50 border-b border-emerald-300 px-0.5 rounded font-medium dark:bg-emerald-950/30 dark:text-emerald-300 dark:border-emerald-800">highly polished drafts</span>.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2 text-[10px] font-mono text-neutral-400">
+              <span class="bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400 px-2 py-0.5 rounded">✓ High-impact delivery</span>
+              <span class="bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400 px-2 py-0.5 rounded">✓ Professional tone</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Section -->
+  <section class="border-t border-neutral-100 bg-white py-16">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+      <p class="text-xs font-semibold uppercase tracking-wider text-neutral-400 font-mono mb-8">Trusted by writers at modern companies</p>
+      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+        <!-- Mock Company Logos -->
+        <div class="flex items-center gap-2 font-bold text-xl text-neutral-700 tracking-tight"><div class="h-6 w-6 rounded bg-neutral-800"></div>Acme Corp</div>
+        <div class="flex items-center gap-2 font-bold text-xl text-neutral-700 tracking-tight"><div class="h-6 w-6 rounded-full bg-indigo-600"></div>GlobalTech</div>
+        <div class="flex items-center gap-2 font-bold text-xl text-neutral-700 tracking-tight italic"><span class="text-2xl">▲</span> Studio</div>
+        <div class="flex items-center gap-2 font-bold text-xl text-neutral-700 tracking-tight"><div class="h-6 w-6 bg-rose-500 rotate-45"></div>Nexus</div>
+        <div class="flex items-center gap-2 font-bold text-xl text-neutral-700 tracking-tight"><div class="h-6 w-6 rounded-sm border-2 border-emerald-500"></div>EcoWrite</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="bg-neutral-50/50 py-24 border-t border-neutral-100 relative overflow-hidden">
+    <!-- Subtle Background Dot pattern -->
+    <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40 pointer-events-none"></div>
+
+    <div class="relative mx-auto max-w-4xl px-6 lg:px-8 z-10">
+      <!-- Section Heading -->
+      <div class="mx-auto max-w-3xl text-center mb-16">
+        <span class="font-mono uppercase tracking-wider text-[10px] font-bold text-neutral-400 bg-neutral-100/80 px-2.5 py-1 rounded-full dark:bg-neutral-800/80 dark:text-neutral-300">FAQ Overview</span>
+        <h2 class="mt-4 text-3xl font-semibold tracking-[-0.03em] text-neutral-900 dark:text-white sm:text-4xl">Frequently Asked Questions</h2>
+        <p class="mt-4 text-base text-neutral-500 dark:text-neutral-400">
+          Everything you need to know about search optimization, content metrics, privacy, and our writing platform.
+        </p>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="space-y-4">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item rounded-xl border border-neutral-200/80 bg-white dark:bg-neutral-900/50 dark:border-neutral-800/80 transition-all duration-300 overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.01)] hover:border-neutral-350 dark:hover:border-neutral-700">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-medium text-neutral-900 dark:text-neutral-100 transition-colors duration-200 focus:outline-none" aria-expanded="false">
+            <span class="text-base font-semibold">How does WordCounter Live help with SEO keyword density?</span>
+            <span class="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-50 dark:bg-neutral-850 border border-neutral-200/50 dark:border-neutral-800 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="faq-icon h-4 w-4 text-neutral-500 dark:text-neutral-400 transition-transform duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-neutral-100/50 dark:border-neutral-800/50 pt-4">
+              WordCounter Live features a real-time keyword density analyzer. It parses your writing to identify the most frequent single words and phrases. By displaying their percentage of the total text, it helps you prevent search engine keyword stuffing, maintain natural language patterns, and optimize your content for targeted search queries.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item rounded-xl border border-neutral-200/80 bg-white dark:bg-neutral-900/50 dark:border-neutral-800/80 transition-all duration-300 overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.01)] hover:border-neutral-350 dark:hover:border-neutral-700">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-medium text-neutral-900 dark:text-neutral-100 transition-colors duration-200 focus:outline-none" aria-expanded="false">
+            <span class="text-base font-semibold">Is WordCounter Live completely secure and privacy-focused?</span>
+            <span class="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-50 dark:bg-neutral-850 border border-neutral-200/50 dark:border-neutral-800 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="faq-icon h-4 w-4 text-neutral-500 dark:text-neutral-400 transition-transform duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-neutral-100/50 dark:border-neutral-800/50 pt-4">
+              Absolutely. Privacy is our core foundation. WordCounter Live runs entirely client-side, meaning all calculations, word counting, and draft storage are processed locally in your browser via LocalStorage. Your text never leaves your device and is never sent to external servers, except when you explicitly choose to use the AI assistant for rewriting or formatting.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item rounded-xl border border-neutral-200/80 bg-white dark:bg-neutral-900/50 dark:border-neutral-800/80 transition-all duration-300 overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.01)] hover:border-neutral-350 dark:hover:border-neutral-700">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-medium text-neutral-900 dark:text-neutral-100 transition-colors duration-200 focus:outline-none" aria-expanded="false">
+            <span class="text-base font-semibold">What readability scores are provided, and how are they calculated?</span>
+            <span class="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-50 dark:bg-neutral-850 border border-neutral-200/50 dark:border-neutral-800 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="faq-icon h-4 w-4 text-neutral-500 dark:text-neutral-400 transition-transform duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-neutral-100/50 dark:border-neutral-800/50 pt-4">
+              We provide an automatic Flesch Reading Ease score and its corresponding US grade level. This index is calculated in real-time based on a standard formula analyzing sentence length and syllable count per word. A score between 60.0 and 70.0 is considered optimal for general audiences, equivalent to an 8th or 9th-grade level.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item rounded-xl border border-neutral-200/80 bg-white dark:bg-neutral-900/50 dark:border-neutral-800/80 transition-all duration-300 overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.01)] hover:border-neutral-350 dark:hover:border-neutral-700">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-medium text-neutral-900 dark:text-neutral-100 transition-colors duration-200 focus:outline-none" aria-expanded="false">
+            <span class="text-base font-semibold">Is the AI writing assistant actually free to use?</span>
+            <span class="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-50 dark:bg-neutral-850 border border-neutral-200/50 dark:border-neutral-800 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="faq-icon h-4 w-4 text-neutral-500 dark:text-neutral-400 transition-transform duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-neutral-100/50 dark:border-neutral-800/50 pt-4">
+              Yes, all AI actions—including rewriting, fixing grammar, changing tone, and summarizing—are completely free of charge. No login or subscription is required. We cover the background API costs to provide a state-of-the-art AI companion to help writers polish their drafts instantly.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item rounded-xl border border-neutral-200/80 bg-white dark:bg-neutral-900/50 dark:border-neutral-800/80 transition-all duration-300 overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.01)] hover:border-neutral-350 dark:hover:border-neutral-700">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-medium text-neutral-900 dark:text-neutral-100 transition-colors duration-200 focus:outline-none" aria-expanded="false">
+            <span class="text-base font-semibold">How is the estimated reading and speaking time calculated?</span>
+            <span class="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-50 dark:bg-neutral-850 border border-neutral-200/50 dark:border-neutral-800 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="faq-icon h-4 w-4 text-neutral-500 dark:text-neutral-400 transition-transform duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-neutral-100/50 dark:border-neutral-800/50 pt-4">
+              The reading time is calculated using an industry-standard average reading speed of 225 words per minute. For speaking time, we utilize a speech rate of 130 words per minute, which is standard for verbal presentations, speeches, and video scripts. You can also customize speed presets in the editor's advanced settings.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="faq-item rounded-xl border border-neutral-200/80 bg-white dark:bg-neutral-900/50 dark:border-neutral-800/80 transition-all duration-300 overflow-hidden shadow-[0_2px_4px_rgba(0,0,0,0.01)] hover:border-neutral-350 dark:hover:border-neutral-700">
+          <button class="faq-trigger w-full flex items-center justify-between p-5 text-left font-medium text-neutral-900 dark:text-neutral-100 transition-colors duration-200 focus:outline-none" aria-expanded="false">
+            <span class="text-base font-semibold">Does the tool auto-save my writing?</span>
+            <span class="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-neutral-50 dark:bg-neutral-850 border border-neutral-200/50 dark:border-neutral-800 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="faq-icon h-4 w-4 text-neutral-500 dark:text-neutral-400 transition-transform duration-300">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-5 pb-5 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed border-t border-neutral-100/50 dark:border-neutral-800/50 pt-4">
+              Yes! The editor features a robust auto-save mechanism that stores your text locally in your browser's secure cache as you type. If you accidentally close your tab or browser, you can reopen WordCounter Live and find your work exactly where you left it.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Schema for Google Rich Snippets SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does WordCounter Live help with SEO keyword density?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "WordCounter Live features a real-time keyword density analyzer. It parses your writing to identify the most frequent single words and phrases. By displaying their percentage of the total text, it helps you prevent search engine keyword stuffing, maintain natural language patterns, and optimize your content for targeted search queries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is WordCounter Live completely secure and privacy-focused?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Privacy is our core foundation. WordCounter Live runs entirely client-side, meaning all calculations, word counting, and draft storage are processed locally in your browser via LocalStorage. Your text never leaves your device and is never sent to external servers, except when you explicitly choose to use the AI assistant for rewriting or formatting."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What readability scores are provided, and how are they calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We provide an automatic Flesch Reading Ease score and its corresponding US grade level. This index is calculated in real-time based on a standard formula analyzing sentence length and syllable count per word. A score between 60.0 and 70.0 is considered optimal for general audiences, equivalent to an 8th or 9th-grade level."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the AI writing assistant actually free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all AI actions—including rewriting, fixing grammar, changing tone, and summarizing—are completely free of charge. No login or subscription is required. We cover the background API costs to provide a state-of-the-art AI companion to help writers polish their drafts instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is the estimated reading and speaking time calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The reading time is calculated using an industry-standard average reading speed of 225 words per minute. For speaking time, we utilize a speech rate of 130 words per minute, which is standard for verbal presentations, speeches, and video scripts. You can also customize speed presets in the editor's advanced settings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the tool auto-save my writing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! The editor features a robust auto-save mechanism that stores your text locally in your browser's secure cache as you type. If you accidentally close your tab or browser, you can reopen WordCounter Live and find your work exactly where you left it."
+        }
+      }
+    ]
+  })} />
+
+  <!-- FAQ Interactive JS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      faqItems.forEach(item => {
+        const trigger = item.querySelector('.faq-trigger');
+        const content = item.querySelector('.faq-content');
+        const icon = item.querySelector('.faq-icon');
+        
+        if (trigger && content) {
+          trigger.addEventListener('click', () => {
+            const isOpen = item.classList.contains('active');
+            
+            // Close all other FAQs for smooth accordion behavior
+            faqItems.forEach(otherItem => {
+              if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+                const otherContent = otherItem.querySelector('.faq-content');
+                const otherIcon = otherItem.querySelector('.faq-icon');
+                const otherTrigger = otherItem.querySelector('.faq-trigger');
+                
+                if (otherContent) (otherContent as HTMLElement).style.maxHeight = '0';
+                if (otherIcon) otherIcon.classList.remove('rotate-180');
+                if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+                otherItem.classList.remove('border-indigo-500/30', 'bg-indigo-50/5', 'dark:border-indigo-500/20', 'dark:bg-indigo-950/10');
+              }
+            });
+            
+            if (isOpen) {
+              item.classList.remove('active');
+              (content as HTMLElement).style.maxHeight = '0';
+              if (icon) icon.classList.remove('rotate-180');
+              trigger.setAttribute('aria-expanded', 'false');
+              item.classList.remove('border-indigo-500/30', 'bg-indigo-50/5', 'dark:border-indigo-500/20', 'dark:bg-indigo-950/10');
+            } else {
+              item.classList.add('active');
+              (content as HTMLElement).style.maxHeight = (content as HTMLElement).scrollHeight + 'px';
+              if (icon) icon.classList.add('rotate-180');
+              trigger.setAttribute('aria-expanded', 'true');
+              item.classList.add('border-indigo-500/30', 'bg-indigo-50/5', 'dark:border-indigo-500/20', 'dark:bg-indigo-950/10');
+            }
+          });
+        }
+      });
+    });
+  </script>
+
+  <!-- Bottom CTA -->
+  <section id="cta-section" class="relative overflow-hidden py-24 text-center">
+    <div class="absolute inset-0 cta-glow"></div>
+    <div class="relative z-10 mx-auto max-w-4xl px-6 lg:px-8">
+      <h2 class="text-4xl font-semibold tracking-tight sm:text-5xl">Ready to write better content?</h2>
+      <p class="mx-auto mt-6 max-w-2xl text-base sm:text-lg opacity-90">Join thousands of writers using WordCounter to polish their drafts, analyze keywords, and hit their goals.</p>
+      <div class="mt-10 flex justify-center gap-4">
+        <a href="/editor" class="btn-cta inline-flex h-12 items-center justify-center rounded-md px-8 text-sm font-bold shadow-sm">
+          Open Free Editor
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
 
 <style>
-  .feature-card {
-    background: var(--color-canvas);
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: var(--shadow-level-2);
-    transition: box-shadow 0.2s;
+  /* Base Hero Section Styles */
+  .hero-section {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, #fcfcfc 0%, #fafafa 60%, #f5f5f5 100%);
+    border-color: rgba(0, 0, 0, 0.05);
   }
-  .feature-card:hover {
-    box-shadow: var(--shadow-level-3);
+  :global(html[data-theme="dark"]) .hero-section {
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.08);
   }
-  .feature-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: var(--color-canvas-soft-2);
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 16px;
+
+  /* Features Section Dark Mode */
+  :global(html[data-theme="dark"]) #features {
+    background-color: #000000;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* FAQ Section Dark Mode */
+  :global(html[data-theme="dark"]) #faq {
+    background-color: #000000;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* CTA Section Styling */
+  #cta-section {
+    background-color: #171717; /* bg-neutral-900 */
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  #cta-section h2 {
+    color: #ffffff;
+  }
+  #cta-section p {
+    color: #d4d4d8; /* text-neutral-300 */
+  }
+  #cta-section .btn-cta {
+    background-color: #ffffff;
+    color: #171717;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #cta-section .btn-cta:hover {
+    background-color: #f4f4f5;
+    transform: scale(1.03);
+  }
+  .cta-glow {
+    background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.15) 0%, rgba(23, 23, 23, 0) 70%);
+  }
+
+  /* CTA Section Dark Mode */
+  :global(html[data-theme="dark"]) #cta-section {
+    background-color: #000000; /* Pure Black background in dark mode */
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  :global(html[data-theme="dark"]) #cta-section h2 {
+    color: #ffffff;
+  }
+  :global(html[data-theme="dark"]) #cta-section p {
+    color: #a1a1aa;
+  }
+  :global(html[data-theme="dark"]) #cta-section .btn-cta {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  :global(html[data-theme="dark"]) #cta-section .btn-cta:hover {
+    background-color: #e4e4e7;
+  }
+  :global(html[data-theme="dark"]) .cta-glow {
+    background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.2) 0%, rgba(0, 0, 0, 0) 80%);
+  }
+
+  /* Fine Dot/Grid Background overlay */
+  .grid-bg {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 80%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 80%, transparent 100%);
+  }
+  :global(html[data-theme="dark"]) .grid-bg {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Center top spotlight glow */
+  .spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 0, 0, 0.01), transparent);
+  }
+  :global(html[data-theme="dark"]) .spotlight {
+    background: radial-gradient(ellipse 85% 60% at 50% -10%, rgba(139, 92, 246, 0.08), rgba(99, 102, 241, 0.04) 50%, transparent 100%);
+  }
+
+  /* Layer 2: Subtle Ambient Gradient across the hero */
+  .hero-ambient-glow {
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgba(99, 102, 241, 0.01) 0%,
+      transparent 80%
+    );
+    transition: background 0.3s ease;
+  }
+  :global(html[data-theme="dark"]) .hero-ambient-glow {
+    background: radial-gradient(
+      circle at 50% 45%,
+      rgba(99, 102, 241, 0.02) 0%,
+      rgba(59, 130, 246, 0.01) 50%,
+      transparent 90%
+    );
+  }
+
+  /* Layer 3: Faint Headline Accent Glow */
+  .hero-headline-accent {
+    background: radial-gradient(
+      circle at 50% 25%,
+      rgba(139, 92, 246, 0.01) 0%,
+      transparent 60%
+    );
+    filter: blur(50px);
+    transition: background 0.3s ease;
+  }
+  :global(html[data-theme="dark"]) .hero-headline-accent {
+    background: radial-gradient(
+      circle at 50% 25%,
+      rgba(139, 92, 246, 0.03) 0%,
+      rgba(59, 130, 246, 0.02) 35%,
+      transparent 65%
+    );
+    filter: blur(70px);
+  }
+
+  /* Layer 1: Giant bottom-center glowing half-circle (Full Screen Width) */
+  .hero-bottom-glow {
+    position: absolute;
+    bottom: 120px; /* Originates precisely from the trust badges row */
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 700px;
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 100%,
+      rgba(99, 102, 241, 0.32) 0%, /* Indigo */
+      rgba(59, 130, 246, 0.16) 35%, /* Blue */
+      rgba(139, 92, 246, 0.06) 65%, /* Violet */
+      transparent 100%
+    );
+    filter: blur(80px);
+    opacity: 0.9;
+    will-change: transform;
+    animation: floating-glow 22s ease-in-out infinite alternate;
+    transition: background 0.3s ease, filter 0.3s ease;
+  }
+  :global(html[data-theme="dark"]) .hero-bottom-glow {
+    background: radial-gradient(
+      ellipse 85% 65% at 50% 100%,
+      rgba(99, 102, 241, 0.56) 0%, /* Rich Indigo */
+      rgba(59, 130, 246, 0.36) 30%,  /* Deep Blue */
+      rgba(139, 92, 246, 0.16) 60%,  /* Soft Violet */
+      transparent 100%
+    );
+    filter: blur(120px);
+    opacity: 0.95;
+  }
+
+  /* Micro-animation: Slow, smooth floating movement (subconscious) */
+  @keyframes floating-glow {
+    0% {
+      transform: translateY(1%) scaleY(0.98);
+    }
+    50% {
+      transform: translateY(-1%) scaleY(1.02);
+    }
+    100% {
+      transform: translateY(0%) scaleY(0.97);
+    }
+  }
+
+  /* Glassmorphic Badge */
+  .hero-badge {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #52525b;
+  }
+  .hero-badge:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+  :global(html[data-theme="dark"]) .hero-badge {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #a1a1aa;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  :global(html[data-theme="dark"]) .hero-badge:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Typography Gradient */
+  .hero-title {
+    color: #171717;
+  }
+  :global(html[data-theme="dark"]) .hero-title {
+    background: linear-gradient(180deg, #ffffff 40%, rgba(255, 255, 255, 0.65) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-description {
+    color: #52525b;
+  }
+  :global(html[data-theme="dark"]) .hero-description {
+    color: #a1a1aa;
+  }
+
+  /* Actions Buttons */
+  .btn-primary {
+    background: #171717;
+    color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .btn-primary:hover {
+    background: #27272a;
+    transform: translateY(-1px);
+  }
+  :global(html[data-theme="dark"]) .btn-primary {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  :global(html[data-theme="dark"]) .btn-primary:hover {
+    background: #e4e4e7;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #52525b;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+  .btn-secondary:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    background: #fafafa;
+    color: #171717;
+    transform: translateY(-1px);
+  }
+  :global(html[data-theme="dark"]) .btn-secondary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #d4d4d8;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  :global(html[data-theme="dark"]) .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  /* Mockup Container Visuals */
+  .mockup-container {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
+  }
+  .mockup-container:hover {
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+  }
+  :global(html[data-theme="dark"]) .mockup-container {
+    background: #09090b;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 20px 50px rgba(0, 0, 0, 0.6), 
+      0 1px 1px rgba(255, 255, 255, 0.01),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  :global(html[data-theme="dark"]) .mockup-container:hover {
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 24px 60px rgba(0, 0, 0, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .mockup-header {
+    background: rgba(0, 0, 0, 0.01);
+    border-color: rgba(0, 0, 0, 0.06);
+  }
+  :global(html[data-theme="dark"]) .mockup-header {
+    background: #0c0c0f;
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .dot-btn {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 9999px;
+  }
+
+  .file-name {
+    color: #71717a;
+  }
+  :global(html[data-theme="dark"]) .file-name {
+    color: #52525b;
+  }
+
+  .badge-autosave {
+    background: #f4f4f5;
+    color: #71717a;
+  }
+  :global(html[data-theme="dark"]) .badge-autosave {
+    background: rgba(255, 255, 255, 0.05);
+    color: #a1a1aa;
+  }
+
+  .mockup-grid {
+    border-color: rgba(0, 0, 0, 0.06);
+  }
+  :global(html[data-theme="dark"]) .mockup-grid {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .mockup-editor {
+    background: #ffffff;
+  }
+  :global(html[data-theme="dark"]) .mockup-editor {
+    background: #09090b;
+  }
+
+  .editor-text {
+    color: #3f3f46;
+  }
+  :global(html[data-theme="dark"]) .editor-text {
+    color: #d4d4d8;
+  }
+
+  .cursor-blink {
+    animation: blink 1.2s step-end infinite;
+  }
+  @keyframes blink {
+    from, to { background-color: transparent }
+    50% { background-color: currentColor }
+  }
+
+  .editor-footer {
+    border-color: rgba(0, 0, 0, 0.03);
+    color: #a1a1aa;
+  }
+  :global(html[data-theme="dark"]) .editor-footer {
+    border-color: rgba(255, 255, 255, 0.04);
+    color: #52525b;
+  }
+
+  .mockup-sidebar {
+    background: rgba(0, 0, 0, 0.01);
+  }
+  :global(html[data-theme="dark"]) .mockup-sidebar {
+    background: #0c0c0f;
+  }
+
+  .sidebar-title {
+    color: #a1a1aa;
+  }
+  :global(html[data-theme="dark"]) .sidebar-title {
+    color: #52525b;
+  }
+
+  .metric-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.05);
+  }
+  :global(html[data-theme="dark"]) .metric-card {
+    background: #121217;
+    border-color: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .metric-label {
+    color: #71717a;
+  }
+  :global(html[data-theme="dark"]) .metric-label {
+    color: #71717a;
+  }
+
+  .metric-val {
+    color: #18181b;
+  }
+  :global(html[data-theme="dark"]) .metric-val {
+    color: #ffffff;
+  }
+
+  .sidebar-divider {
+    border-color: rgba(0, 0, 0, 0.05);
+  }
+  :global(html[data-theme="dark"]) .sidebar-divider {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .sidebar-text {
+    color: #71717a;
+  }
+  :global(html[data-theme="dark"]) .sidebar-text {
+    color: #a1a1aa;
+  }
+
+  .sidebar-val {
+    color: #27272a;
+  }
+  :global(html[data-theme="dark"]) .sidebar-val {
+    color: #e4e4e7;
+  }
+
+  .progress-bg {
+    background: #f4f4f5;
+  }
+  :global(html[data-theme="dark"]) .progress-bg {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .progress-bar-active {
+    background: #18181b;
+  }
+  :global(html[data-theme="dark"]) .progress-bar-active {
+    background: #8b5cf6;
+  }
+
+  .progress-bar-secondary {
+    background: #71717a;
+  }
+  :global(html[data-theme="dark"]) .progress-bar-secondary {
+    background: #4b5563;
+  }
+
+  /* Trust badges */
+  .trust-divider {
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+  :global(html[data-theme="dark"]) .trust-divider {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .trust-item {
+    color: #52525b;
+  }
+  :global(html[data-theme="dark"]) .trust-item {
+    color: #a1a1aa;
+  }
+
+  /* AI Assistant Showcase Section Specifics */
+  :global(html[data-theme="dark"]) .ai-showcase-section {
+    background: #000000;
+  }
+
+  /* Refined card styles for dark mode to match Vercel aesthetic */
+  :global(html[data-theme="dark"]) .lg\:col-span-7 .rounded-xl {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 20px 50px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.02), transparent);
+  }
+
+  :global(html[data-theme="dark"]) .lg\:col-span-7 .rounded-xl:hover {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 24px 60px rgba(0, 0, 0, 0.6);
   }
 </style>
+

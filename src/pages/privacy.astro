@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Privacy Policy | WordCounter"
+  description="Read the WordCounter Privacy Policy. Learn how our privacy-first editing suite processes all your writing locally inside your browser."
+  showFooter={true}
+>
+  <div class="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-neutral-100 font-sans selection:bg-neutral-200 dark:selection:bg-neutral-800 relative overflow-hidden">
+    
+    <!-- Dot grid backdrop overlay -->
+    <div class="absolute inset-0 grid-bg pointer-events-none opacity-[0.02] dark:opacity-[0.04]"></div>
+
+    <!-- Soft ambient glows -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="absolute top-[-120px] right-[5%] h-[400px] w-[400px] rounded-full bg-violet-100/40 dark:bg-violet-950/20 blur-[120px]"></div>
+      <div class="absolute bottom-[-100px] left-[5%] h-[500px] w-[500px] rounded-full bg-cyan-100/30 dark:bg-cyan-950/10 blur-[100px]"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="relative max-w-3xl mx-auto px-6 py-16 lg:py-24 z-10 text-left">
+      
+      <!-- Hero Header -->
+      <header class="space-y-4 mb-12">
+        <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800/50 w-fit">
+          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          Privacy First
+        </span>
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-[-0.04em] text-neutral-900 dark:text-white leading-[1.1]">
+          Your words are yours alone.
+        </h1>
+        <p class="text-xs text-neutral-400 dark:text-neutral-500 font-mono">Last updated: May 31, 2026</p>
+      </header>
+
+      <!-- Prominent commitment box -->
+      <div class="panel-card p-6 border border-neutral-200/50 dark:border-neutral-800/80 rounded-xl bg-neutral-50/30 dark:bg-neutral-900/10 mb-12 shadow-[0_2px_4px_rgba(0,0,0,0.01)]">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-neutral-900 dark:text-white mb-2 flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Our Sacred Commitment
+        </h2>
+        <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed font-light">
+          WordCounter operates 100% locally in your client browser session. We do not transmit, index, cache, or store your typed essays, documents, or personal credentials on external database servers. What you write on this website is entirely confidential and securely enclosed on your own device.
+        </p>
+      </div>
+
+      <!-- Clauses Section -->
+      <section class="space-y-10 text-neutral-600 dark:text-neutral-300 leading-relaxed text-sm">
+        
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">1. Core Data Handling</h3>
+          <p class="font-light">
+            When you type inside our Editor or Analytics canvas, all metric calculations (including word, character, sentence, and paragraph counts) are computed instantly in your local browser using client-side JavaScript. Because of this architectural model, no cloud telemetry is generated or transmitted.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">2. Browser Draft Storage</h3>
+          <p class="font-light">
+            To prevent you from losing your work during accidental tab closures or computer restarts, WordCounter utilizes your browser’s local storage (`localStorage`). This draft data is saved purely on your physical hardware, meaning we have zero entry points or capability to read, back up, or inspect your saved drafts. You may clear your draft storage at any time by clicking the "Clear" button in the toolbar.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">3. Optional AI Assistant Processing</h3>
+          <p class="font-light">
+            If you opt to use our inline writing assistant utilities (such as Rewrite, Shorten, Expand, or Grammar checks), the selected text segment is securely passed to generative AI endpoints powered by Google Gemini. This optional transfer occurs solely to perform your requested action. Google Gemini does not utilize text data sent to its API for foundation model training. All original raw drafts remain local.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">4. Cookies and Analytical Trackers</h3>
+          <p class="font-light">
+            WordCounter is dedicated to a track-free user experience. We do not deploy third-party advertising cookie bundles, retargeting pixels, or behavioral analytics profiles.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">5. Changes to This Policy</h3>
+          <p class="font-light">
+            We reserve the right to refine or simplify our Privacy Policy as new browser-native security standards emerge. Any updates will be logged on this page alongside the update date.
+          </p>
+        </div>
+
+        <div class="pt-8 border-t border-neutral-100 dark:border-neutral-900 text-xs text-neutral-400 dark:text-neutral-500 font-mono">
+          For privacy inquiries or technical architecture reviews, contact us at hello@wordcounter.live.
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Premium dot-grid utility matching home designs */
+  .grid-bg {
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  :global(html[data-theme="dark"]) .grid-bg {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  }
+</style>

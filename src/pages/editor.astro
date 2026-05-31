@@ -1,0 +1,949 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout showFooter={false}>
+  <div class="flex flex-col md:flex-row h-[calc(100vh-56px)] bg-white dark:bg-black overflow-hidden text-neutral-900 dark:text-neutral-100 font-sans transition-colors duration-300" id="editor-container">
+
+    <!-- LEFT COLUMN: toolbar + editor + bottom bar -->
+    <div class="flex flex-col flex-1 overflow-hidden relative">
+
+      <!-- Toast Container -->
+      <div id="toast-container" class="fixed top-3 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+
+      <!-- INNER WRITING BOX TOOLBAR -->
+      <div class="bg-neutral-50/50 dark:bg-neutral-900/50 select-none relative z-30 w-full border-b border-neutral-200 dark:border-neutral-800" id="inner-toolbar">
+        <div id="inner-toolbar-content" class="w-full flex flex-wrap items-center justify-between transition-all duration-300 mx-auto px-3 py-2 gap-4">
+          
+          <div class="flex items-center gap-4 min-w-max">
+            <!-- Mobile Sidebar Toggle -->
+            <button id="btn-toggle-sidebar" class="md:hidden flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-neutral-500 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer border border-neutral-200 dark:border-neutral-800" title="Toggle Sidebar">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              Stats
+            </button>
+            <div id="save-status" class="flex items-center gap-2 text-[11px] text-neutral-400 dark:text-neutral-500 font-medium hidden md:flex pl-[60px]">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              Auto Saved
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 justify-end min-w-max">
+            <!-- Find and Replace -->
+            <div class="relative flex items-center gap-0 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-md overflow-hidden h-8" id="find-replace-container">
+              <div class="flex items-center px-2 py-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-400 dark:text-neutral-500"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="find-input" placeholder="Find..." class="w-20 sm:w-28 px-2 text-[11px] font-sans outline-none bg-transparent placeholder-neutral-400 dark:placeholder-neutral-600 text-neutral-800 dark:text-neutral-200" />
+              </div>
+              
+              <!-- Swap Button -->
+              <button id="btn-swap-find-replace" class="flex items-center justify-center w-6 h-full border-x border-neutral-200 dark:border-neutral-800 text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200/40 dark:hover:bg-neutral-800/40 transition-colors cursor-pointer focus:outline-none" title="Swap Find and Replace text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m17 3 4 4-4 4"/>
+                  <path d="M3 7h18"/>
+                  <path d="m7 21-4-4 4-4"/>
+                  <path d="M21 17H3"/>
+                </svg>
+              </button>
+
+              <div class="flex items-center px-2 py-1">
+                <input type="text" id="replace-input" placeholder="Replace..." class="w-20 sm:w-28 px-2 text-[11px] font-sans outline-none bg-transparent placeholder-neutral-400 dark:placeholder-neutral-600 text-neutral-800 dark:text-neutral-200" />
+                <button id="btn-replace" class="ml-1 px-2 py-0.5 text-[10px] font-bold text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800 rounded transition-colors uppercase tracking-tight">Replace All</button>
+              </div>
+            </div>
+
+            <div class="h-4 w-px bg-neutral-200 dark:bg-neutral-800 mx-1"></div>
+
+            <!-- Clipboard operations -->
+            <div class="flex items-center bg-white dark:bg-black border border-neutral-200 dark:border-neutral-800 rounded-md overflow-hidden h-8">
+              <button id="btn-copy" class="flex items-center gap-1.5 px-3 h-full text-[11px] font-medium text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer border-r border-neutral-200 dark:border-neutral-800" title="Copy all content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span class="hidden lg:inline">Copy</span>
+              </button>
+              <button id="btn-paste" class="flex items-center gap-1.5 px-3 h-full text-[11px] font-medium text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer" title="Paste from clipboard">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                <span class="hidden lg:inline">Paste</span>
+              </button>
+            </div>
+
+            <button id="btn-clear" class="flex items-center gap-1.5 rounded-md px-2.5 h-8 text-[11px] font-medium text-neutral-500 dark:text-neutral-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 border border-transparent hover:border-red-100 dark:hover:border-red-900/30 transition-all cursor-pointer" title="Clear all text">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              <span class="hidden sm:inline">Clear</span>
+            </button>
+
+            <!-- Navbar Remove Spaces Utility -->
+            <button id="btn-navbar-remove-spaces" class="flex items-center gap-1.5 rounded-md px-2.5 h-8 text-[11px] font-medium text-neutral-500 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all cursor-pointer" title="Remove Extra Spaces">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+                <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+                <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+                <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+                <path d="M9 12h6"/>
+              </svg>
+              <span class="hidden sm:inline">Trim Spaces</span>
+            </button>
+            
+            <div class="h-4 w-px bg-neutral-200 dark:bg-neutral-800 mx-1"></div>
+    
+            <!-- History -->
+            <div class="flex items-center gap-1">
+              <button id="btn-undo" class="flex items-center justify-center rounded-md w-8 h-8 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed" title="Undo (Ctrl+Z)" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+              </button>
+              <button id="btn-redo" class="flex items-center justify-center rounded-md w-8 h-8 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white border border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed" title="Redo (Ctrl+Y)" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+              </button>
+            </div>
+    
+            <div class="h-4 w-px bg-neutral-200 dark:bg-neutral-800 mx-1 hidden sm:block"></div>
+    
+            <!-- Case conversions -->
+            <div class="relative hidden sm:inline-block text-left" id="case-dropdown-container">
+              <button id="btn-case" class="flex items-center gap-1 rounded-md px-3 h-8 text-[11px] font-medium text-neutral-600 dark:text-neutral-400 bg-white dark:bg-black border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-600 transition-all cursor-pointer">
+                Case
+                <svg class="h-3 w-3 text-neutral-400 dark:text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+              </button>
+              <div id="case-dropdown-menu" class="hidden absolute right-0 mt-2 w-40 origin-top-right rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl ring-1 ring-black/5 focus:outline-none z-50">
+                <div class="py-1.5">
+                  <button id="case-upper" class="block w-full text-left px-4 py-2 text-xs text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors">UPPERCASE</button>
+                  <button id="case-lower" class="block w-full text-left px-4 py-2 text-xs text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors">lowercase</button>
+                  <button id="case-title" class="block w-full text-left px-4 py-2 text-xs text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors">Title Case</button>
+                  <button id="case-sentence" class="block w-full text-left px-4 py-2 text-xs text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors">Sentence Case</button>
+                </div>
+              </div>
+            </div>
+    
+            <!-- Export Dropdown -->
+            <div class="relative inline-block text-left" id="export-dropdown-container">
+              <button id="btn-export-dropdown" class="flex items-center gap-1.5 rounded-md px-4 h-8 text-[11px] font-semibold text-white bg-neutral-900 dark:bg-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-all cursor-pointer shadow-sm" title="Export document">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Export
+              </button>
+              <div id="export-dropdown-menu" class="hidden absolute right-0 mt-2 w-44 origin-top-right rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl ring-1 ring-black/5 focus:outline-none z-50">
+                <div class="py-1.5">
+                  <button id="export-pdf" class="flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-400 dark:text-neutral-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Export as PDF
+                  </button>
+                  <button id="export-docx" class="flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-400 dark:text-neutral-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Export as Word
+                  </button>
+                  <div class="h-px bg-neutral-100 dark:bg-neutral-800 mx-2 my-1"></div>
+                  <button id="export-txt" class="flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-[11px] font-medium text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-400 dark:text-neutral-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Export as Plain Text
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN INTERFACE BODY -->
+      <div class="flex flex-1 overflow-hidden relative">
+        <!-- CENTER WRITING AREA -->
+        <div class="flex-1 overflow-y-auto px-4 md:px-6 flex justify-center bg-white dark:bg-black transition-all duration-300 relative" id="editor-scroll-container">
+          
+          <div id="editor-box-container" class="w-full max-w-3xl flex flex-col h-full transition-all duration-300 relative">
+            <div
+              id="main-editor"
+              contenteditable="true"
+              class="flex-1 outline-none font-sans text-[17px] leading-relaxed text-neutral-800 dark:text-neutral-200 bg-transparent selection:bg-neutral-200 dark:selection:bg-neutral-800 min-h-full pb-48 pt-12"
+              placeholder="Start typing or paste your text here to begin writing..."
+            ></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- end left-column -->
+
+    <!-- RIGHT STICKY ANALYTICS SIDEBAR -->
+    <aside class="w-full md:w-80 border-l border-neutral-100 dark:border-neutral-800 bg-neutral-50/30 dark:bg-neutral-900/20 px-6 pt-5 pb-8 overflow-y-auto flex flex-col gap-8 select-none transition-transform duration-300 z-40 h-full absolute md:static right-0 translate-x-full md:translate-x-0 bg-white dark:bg-black md:bg-neutral-50/30 dark:md:bg-neutral-900/20 shadow-2xl md:shadow-none" id="editor-sidebar">
+      
+      <div class="flex items-center justify-between md:hidden mb-2">
+        <h2 class="text-sm font-bold tracking-tight dark:text-white">Writing Analytics</h2>
+        <button id="btn-close-sidebar" class="p-2 bg-neutral-100 dark:bg-neutral-800 rounded-full cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-700 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Live Stats Grid -->
+      <div class="space-y-4">
+        <h3 class="font-bold text-[11px] uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500 mb-4">Core Statistics</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-white dark:bg-neutral-900/40 p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+            <span class="block text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Words</span>
+            <span id="stat-words" class="mt-1 block text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-sans tracking-tight leading-none">0</span>
+          </div>
+          <div class="rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-white dark:bg-neutral-900/40 p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+            <span class="block text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Characters</span>
+            <span id="stat-chars" class="mt-1 block text-2xl font-bold text-neutral-900 dark:text-neutral-100 font-sans tracking-tight leading-none">0</span>
+          </div>
+          <div class="rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-white dark:bg-neutral-900/40 p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)] col-span-2 flex justify-between items-end">
+            <div>
+              <span class="block text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Chars (no spaces)</span>
+              <span id="stat-chars-nospaces" class="mt-1 block text-xl font-bold text-neutral-900 dark:text-neutral-100 font-sans tracking-tight leading-none">0</span>
+            </div>
+          </div>
+          <div class="rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-white dark:bg-neutral-900/40 p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+            <span class="block text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Sentences</span>
+            <span id="stat-sentences" class="mt-1 block text-xl font-bold text-neutral-900 dark:text-neutral-100 font-sans tracking-tight leading-none">0</span>
+          </div>
+          <div class="rounded-xl border border-neutral-200/60 dark:border-neutral-800/60 bg-white dark:bg-neutral-900/40 p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+            <span class="block text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Paragraphs</span>
+            <span id="stat-paragraphs" class="mt-1 block text-xl font-bold text-neutral-900 dark:text-neutral-100 font-sans tracking-tight leading-none">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time & Readability -->
+      <div class="pt-2 flex flex-col gap-5">
+        <div class="space-y-3">
+          <h3 class="font-bold text-[11px] uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500">Tempo & Scale</h3>
+          <div class="bg-white dark:bg-neutral-900/40 border border-neutral-200/60 dark:border-neutral-800/60 rounded-xl divide-y divide-neutral-100 dark:divide-neutral-800 overflow-hidden">
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Reading Time</span>
+              <span id="metric-reading" class="font-bold text-neutral-900 dark:text-neutral-100">0m 0s</span>
+            </div>
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Speaking Time</span>
+              <span id="metric-speaking" class="font-bold text-neutral-900 dark:text-neutral-100">0m 0s</span>
+            </div>
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Readability (Flesch)</span>
+              <span id="metric-level" class="rounded px-2 py-0.5 font-bold text-[10px] uppercase tracking-wider bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">None</span>
+            </div>
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Reading Level</span>
+              <span id="metric-reading-level" class="rounded px-2 py-0.5 font-bold text-[10px] uppercase tracking-wider bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">None</span>
+            </div>
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Average Sentence Length</span>
+              <span id="metric-avg-sentence-length" class="font-bold text-neutral-900 dark:text-neutral-100 font-mono">0.0 words</span>
+            </div>
+            <div class="flex flex-col p-3.5 text-xs gap-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-neutral-500 dark:text-neutral-400 font-medium">Longest Sentence</span>
+                <span id="metric-longest-sentence-words" class="font-bold text-neutral-900 dark:text-neutral-100 font-mono">0 words</span>
+              </div>
+              <div id="metric-longest-sentence-preview" class="text-[10px] text-neutral-400 dark:text-neutral-500 italic truncate max-w-[240px] pl-2 border-l-2 border-neutral-200 dark:border-neutral-800" title="No sentence available">
+                "No content available..."
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="font-bold text-[11px] uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500">Quality Insights</h3>
+          <div class="bg-white dark:bg-neutral-900/40 border border-neutral-200/60 dark:border-neutral-800/60 rounded-xl divide-y divide-neutral-100 dark:divide-neutral-800 overflow-hidden">
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Flow Score</span>
+              <div class="flex items-center gap-2">
+                <span id="quality-flow" class="font-bold text-neutral-900 dark:text-neutral-100">0%</span>
+                <div class="w-12 h-1.5 bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden">
+                  <div id="flow-bar" class="h-full bg-violet-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Vocabulary</span>
+              <span id="quality-vocab" class="font-bold text-neutral-900 dark:text-neutral-100">0%</span>
+            </div>
+            <div class="flex items-center justify-between p-3.5 text-xs">
+              <span class="text-neutral-500 dark:text-neutral-400 font-medium">Health Status</span>
+              <span id="quality-health" class="font-bold text-emerald-500">Excellent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keyword Analysis -->
+      <div class="space-y-3">
+        <h3 class="font-bold text-[11px] uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500">Keyword Analysis</h3>
+        <div class="bg-white dark:bg-neutral-900/40 border border-neutral-200/60 dark:border-neutral-800/60 rounded-xl overflow-hidden">
+          <div id="keyword-empty" class="p-4">
+            <p class="text-[11px] text-neutral-400 dark:text-neutral-500">No content available for keyword analysis.</p>
+          </div>
+          <div id="keyword-content" class="hidden">
+            <div class="px-3.5 py-2.5 border-b border-neutral-100 dark:border-neutral-800">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Keyword</span>
+                <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Density</span>
+              </div>
+              <div id="keyword-density-list" class="space-y-1.5"></div>
+            </div>
+            <div class="px-3.5 py-2.5">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Keyword</span>
+                <span class="text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Freq</span>
+              </div>
+              <div id="keyword-frequency-list" class="space-y-1.5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goal Tracker -->
+      <div class="mt-auto pt-6 border-t border-neutral-200/60 dark:border-neutral-800/60">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-[11px] uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500">Writing Goal</h3>
+          <span id="goal-percentage" class="text-xs font-black text-neutral-900 dark:text-neutral-100">0%</span>
+        </div>
+        
+        <div class="bg-white dark:bg-neutral-900/40 border border-neutral-200/60 dark:border-neutral-800/60 rounded-xl p-4 space-y-4">
+          <div class="flex justify-between text-[11px] items-center">
+            <span class="text-neutral-500 dark:text-neutral-400 font-medium uppercase tracking-wider">Progress</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-neutral-900 dark:text-neutral-100 font-bold" id="goal-current-words">0</span>
+              <span class="text-neutral-300 dark:text-neutral-700">/</span>
+              <input type="number" id="goal-target-input" value="1000" class="w-14 px-1 py-0.5 text-center font-bold text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-800 outline-none focus:border-neutral-900 dark:focus:border-neutral-100 bg-transparent" />
+            </div>
+          </div>
+          
+          <div class="h-2 w-full rounded-full bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
+            <div id="goal-progress-bar" class="h-full rounded-full bg-neutral-900 dark:bg-white transition-all duration-500 ease-out" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Utility Actions -->
+      <div class="mt-4 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60">
+        <h3 class="font-bold text-[11px] uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500 mb-3">Utility Actions</h3>
+        <button id="btn-remove-spaces" class="w-full flex items-center justify-center gap-2 rounded-xl py-2 px-3 text-xs font-semibold text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-900/40 border border-neutral-200/60 dark:border-neutral-800/60 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-white transition-all cursor-pointer shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+            <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+            <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+            <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+            <path d="M9 12h6"/>
+          </svg>
+          Remove Extra Spaces
+        </button>
+      </div>
+    </aside>
+
+  </div>
+</BaseLayout>
+
+<style>
+  #main-editor {
+    color: var(--wc-text) !important;
+  }
+
+  #main-editor:empty:before {
+    content: attr(placeholder);
+    color: #a3a3a3;
+    font-style: italic;
+    font-weight: 300;
+    pointer-events: none;
+    display: block;
+  }
+
+  /* Hide scrollbar while maintaining scroll functionality */
+  :global(html) {
+    overflow: hidden;
+  }
+  :global(body) {
+    overflow: hidden;
+  }
+  #editor-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  #editor-scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Selection style */
+  ::selection {
+    background: #f3f4f6;
+    color: #111111;
+  }
+  :global(html[data-theme="dark"]) ::selection {
+    background: #3b82f6;
+    color: #ffffff;
+  }
+
+  /* Keyword row hover */
+  #keyword-density-list > div:hover,
+  #keyword-frequency-list > div:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+  }
+  :global(html[data-theme="dark"]) #keyword-density-list > div:hover,
+  :global(html[data-theme="dark"]) #keyword-frequency-list > div:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Toast Animation Classes */
+  .toast-enter {
+    animation: toastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .toast-exit {
+    animation: toastFadeOut 0.3s ease-in forwards;
+  }
+  @keyframes toastSlideIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes toastFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+</style>
+
+<script>
+  import { analyzeKeywords } from '../services/keywordAnalyzer.js';
+
+  // --- REUSABLE BUSINESS LOGIC HELPER FUNCTIONS ---
+  export function calculateAverageSentenceLength(wordsCount, sentencesCount) {
+    if (!sentencesCount || sentencesCount === 0) return 0;
+    return parseFloat((wordsCount / sentencesCount).toFixed(1));
+  }
+
+  export function findLongestSentence(text) {
+    if (!text || !text.trim()) {
+      return { words: 0, text: "" };
+    }
+    const cleanText = text.replace(/[\u200B-\u200D\uFEFF]/g, '');
+    const sentences = cleanText
+      .split(/[.!?]+/)
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    if (sentences.length === 0) {
+      return { words: 0, text: "" };
+    }
+
+    let longest = { words: 0, text: "" };
+    for (let i = 0; i < sentences.length; i++) {
+      const s = sentences[i];
+      const wordsArray = s.split(/\s+/).filter(w => w.length > 0);
+      const count = wordsArray.length;
+      if (count > longest.words) {
+        longest = { words: count, text: s };
+      }
+    }
+    return longest;
+  }
+
+  export function calculateReadingLevel(averageSentenceLength) {
+    if (averageSentenceLength <= 0) return 'None';
+    if (averageSentenceLength < 10) return 'Very Easy';
+    if (averageSentenceLength <= 15) return 'Easy';
+    if (averageSentenceLength <= 20) return 'Moderate';
+    if (averageSentenceLength <= 25) return 'Difficult';
+    return 'Very Difficult';
+  }
+
+  export function removeExtraSpaces(text) {
+    if (!text) return '';
+    return text
+      .replace(/[ \t\u00a0\xa0]+/g, ' ')
+      .replace(/\n\s*\n/g, '\n\n')
+      .split('\n')
+      .map(line => line.trim())
+      .join('\n')
+      .trim();
+  }
+
+  export function calculateWritingGoalProgress(currentWords, targetWords) {
+    const target = parseInt(targetWords, 10) || 0;
+    if (target <= 0) return { percentage: 0, current: currentWords, target: 0 };
+    const percentage = Math.min(100, Math.round((currentWords / target) * 100));
+    return { percentage, current: currentWords, target };
+  }
+
+  // Make sure we run client-side only
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const editor = document.getElementById('main-editor');
+      const caseBtn = document.getElementById('btn-case');
+      const caseDropdown = document.getElementById('case-dropdown-menu');
+      const exportBtn = document.getElementById('btn-export-dropdown');
+      const exportDropdown = document.getElementById('export-dropdown-menu');
+      const toastContainer = document.getElementById('toast-container');
+      const sidebar = document.getElementById('editor-sidebar');
+      const btnToggleSidebar = document.getElementById('btn-toggle-sidebar');
+      const btnCloseSidebar = document.getElementById('btn-close-sidebar');
+      const goalInput = document.getElementById('goal-target-input');
+
+      // Toast Notification System
+      function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        const icon = type === 'success' ? '✓' : '!';
+        const colorClass = type === 'success' ? 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800' : 'bg-red-50 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800';
+        
+        toast.className = `flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-full shadow-lg pointer-events-auto toast-enter ${colorClass}`;
+        toast.innerHTML = `<span class="font-bold">${icon}</span> <span>${message}</span>`;
+        
+        toastContainer.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.replace('toast-enter', 'toast-exit');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Mobile Sidebar Toggle
+      btnToggleSidebar?.addEventListener('click', () => {
+        sidebar.classList.remove('translate-x-full');
+      });
+      btnCloseSidebar?.addEventListener('click', () => {
+        sidebar.classList.add('translate-x-full');
+      });
+
+      // State history stacks
+      let historyStack = [''];
+      let historyIndex = 0;
+
+      // Load from localStorage
+      const savedGoal = localStorage.getItem('wc_target_goal');
+      if (savedGoal) {
+        goalInput.value = savedGoal;
+      }
+
+      const cachedText = localStorage.getItem('word_counter_live_draft');
+      if (cachedText) {
+        editor.innerText = cachedText;
+        historyStack[0] = cachedText;
+        updateMetrics();
+        updateKeywords();
+      }
+
+      // Input event
+      editor.addEventListener('input', () => {
+        updateMetrics();
+        scheduleKeywordAnalysis();
+        saveState();
+        showSavePulse();
+      });
+
+      // Goal Input change listener
+      goalInput.addEventListener('input', updateMetrics);
+
+      function saveState() {
+        if (historyIndex < historyStack.length - 1) {
+          historyStack = historyStack.slice(0, historyIndex + 1);
+        }
+        const currentText = editor.innerText;
+        if (historyStack[historyIndex] !== currentText) {
+          historyStack.push(currentText);
+          if (historyStack.length > 50) {
+            historyStack.shift();
+          } else {
+            historyIndex++;
+          }
+        }
+        updateUndoRedoButtons();
+      }
+
+      function updateUndoRedoButtons() {
+        const undoBtn = document.getElementById('btn-undo');
+        const redoBtn = document.getElementById('btn-redo');
+        if (undoBtn) undoBtn.disabled = historyIndex === 0;
+        if (redoBtn) redoBtn.disabled = historyIndex >= historyStack.length - 1;
+      }
+
+      // Core Metrics Calculator
+      function updateMetrics() {
+        let text = editor.innerText;
+        if (text.endsWith('\n')) {
+          text = text.slice(0, -1);
+        }
+        const chars = text.length;
+        const charsNoSpaces = text.replace(/\s+/g, '').length;
+        const wordsArray = text.trim().split(/\s+/).filter(w => w.length > 0);
+        const words = wordsArray.length;
+        const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+        const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+
+        document.getElementById('stat-words').textContent = String(words);
+        document.getElementById('stat-chars').textContent = String(chars);
+        document.getElementById('stat-chars-nospaces').textContent = String(charsNoSpaces);
+        document.getElementById('stat-sentences').textContent = String(sentences);
+        document.getElementById('stat-paragraphs').textContent = String(paragraphs);
+
+        localStorage.setItem('word_counter_live_draft', text);
+
+        // Goal Tracker
+        const targetGoal = parseInt(goalInput.value, 10) || 1000;
+        localStorage.setItem('wc_target_goal', targetGoal); // Persist goal
+        const goalProgress = calculateWritingGoalProgress(words, targetGoal);
+        document.getElementById('goal-current-words').textContent = String(words);
+        document.getElementById('goal-percentage').textContent = `${goalProgress.percentage}%`;
+        document.getElementById('goal-progress-bar').style.width = `${goalProgress.percentage}%`;
+
+        // Reading speed
+        const readingSeconds = Math.ceil((words / 225) * 60);
+        const rMins = Math.floor(readingSeconds / 60);
+        const rSecs = readingSeconds % 60;
+        document.getElementById('metric-reading').textContent = `${rMins}m ${rSecs}s`;
+
+        const speakingSeconds = Math.ceil((words / 130) * 60);
+        const sMins = Math.floor(speakingSeconds / 60);
+        const sSecs = speakingSeconds % 60;
+        document.getElementById('metric-speaking').textContent = `${sMins}m ${sSecs}s`;
+
+        // Flesch Reading Ease
+        let readabilityLevel = 'None';
+        let readabilityClass = 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400';
+        if (words > 0) {
+          const fleschScore = Math.max(0, Math.min(100, Math.round(90 - 10 * (words / (sentences || 1)) + 5 * (chars / (words || 1)))));
+          if (fleschScore >= 90) {
+            readabilityLevel = '5th Grade';
+            readabilityClass = 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400';
+          } else if (fleschScore >= 80) {
+            readabilityLevel = '6th Grade';
+            readabilityClass = 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400';
+          } else if (fleschScore >= 70) {
+            readabilityLevel = '7th Grade';
+            readabilityClass = 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-400';
+          } else if (fleschScore >= 60) {
+            readabilityLevel = 'Standard';
+            readabilityClass = 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400';
+          } else if (fleschScore >= 50) {
+            readabilityLevel = 'Difficult';
+            readabilityClass = 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400';
+          } else {
+            readabilityLevel = 'Very Difficult';
+            readabilityClass = 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400';
+          }
+        }
+        const levelEl = document.getElementById('metric-level');
+        levelEl.textContent = readabilityLevel;
+        levelEl.className = `rounded px-2 py-0.5 font-bold text-[10px] uppercase tracking-wider ${readabilityClass}`;
+
+        // 1. Average Sentence Length
+        const avgSentenceLength = calculateAverageSentenceLength(words, sentences);
+        document.getElementById('metric-avg-sentence-length').textContent = `${avgSentenceLength} words`;
+
+        // 2. Reading Level (Lightweight)
+        const readingLevel = calculateReadingLevel(avgSentenceLength);
+        let readingLevelClass = 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400';
+        if (readingLevel === 'Very Easy' || readingLevel === 'Easy') {
+          readingLevelClass = 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400';
+        } else if (readingLevel === 'Moderate') {
+          readingLevelClass = 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400';
+        } else if (readingLevel === 'Difficult') {
+          readingLevelClass = 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400';
+        } else if (readingLevel === 'Very Difficult') {
+          readingLevelClass = 'bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400';
+        }
+        const readingLevelEl = document.getElementById('metric-reading-level');
+        readingLevelEl.textContent = readingLevel;
+        readingLevelEl.className = `rounded px-2 py-0.5 font-bold text-[10px] uppercase tracking-wider ${readingLevelClass}`;
+
+        // 3. Longest Sentence Detection
+        const longest = findLongestSentence(text);
+        document.getElementById('metric-longest-sentence-words').textContent = `${longest.words} words`;
+        const longestPreviewEl = document.getElementById('metric-longest-sentence-preview');
+        if (longest.words > 0) {
+          longestPreviewEl.textContent = longest.text.length > 35 ? `"${longest.text.slice(0, 35)}..."` : `"${longest.text}"`;
+          longestPreviewEl.title = longest.text;
+        } else {
+          longestPreviewEl.textContent = '"No content available..."';
+          longestPreviewEl.title = 'No sentence available';
+        }
+
+        // Vocab & Flow
+        let vocabScore = words > 0 ? Math.round((new Set(wordsArray.map(w => w.toLowerCase())).size / words) * 100) : 0;
+        let flowScore = sentences > 0 ? Math.max(0, Math.min(100, Math.round(75 + (sentences * 1.5)))) : 0;
+        document.getElementById('quality-vocab').textContent = `${vocabScore}%`;
+        document.getElementById('quality-flow').textContent = `${flowScore}%`;
+        document.getElementById('flow-bar').style.width = `${flowScore}%`;
+
+        // Content Health
+        let healthLabel = 'Healthy';
+        let healthClass = 'text-emerald-500';
+        if (words > 10) {
+          if (vocabScore < 40) {
+            healthLabel = 'Repetitive';
+            healthClass = 'text-amber-500';
+          } else if (flowScore < 50) {
+            healthLabel = 'Stiff';
+            healthClass = 'text-rose-500';
+          }
+        }
+        const healthEl = document.getElementById('quality-health');
+        healthEl.textContent = healthLabel;
+        healthEl.className = `font-bold ${healthClass}`;
+      }
+
+      // Keyword Analysis Functions
+      function escapeHtml(str) {
+        const d = document.createElement('div');
+        d.appendChild(document.createTextNode(str));
+        return d.innerHTML;
+      }
+
+      function renderKeywordRow(keyword, value, suffix) {
+        return `<div class="flex items-center justify-between text-xs py-0.5">
+          <span class="text-neutral-700 dark:text-neutral-300 truncate max-w-[70%]">${escapeHtml(keyword)}</span>
+          <span class="font-semibold text-neutral-900 dark:text-neutral-100 ml-2 shrink-0">${value}${suffix}</span>
+        </div>`;
+      }
+
+      function updateKeywords() {
+        const text = editor.innerText;
+        if (!text.trim()) {
+          document.getElementById('keyword-empty').classList.remove('hidden');
+          document.getElementById('keyword-content').classList.add('hidden');
+          return;
+        }
+        const result = analyzeKeywords(text);
+        if (result.density.length === 0) {
+          document.getElementById('keyword-empty').classList.remove('hidden');
+          document.getElementById('keyword-content').classList.add('hidden');
+          return;
+        }
+        document.getElementById('keyword-empty').classList.add('hidden');
+        document.getElementById('keyword-content').classList.remove('hidden');
+        document.getElementById('keyword-density-list').innerHTML = result.density.map(
+          d => renderKeywordRow(d.keyword, d.density, '%')
+        ).join('');
+        document.getElementById('keyword-frequency-list').innerHTML = result.frequency.map(
+          f => renderKeywordRow(f.keyword, f.count, '')
+        ).join('');
+      }
+
+      const scheduleKeywordAnalysis = (function() {
+        let timer;
+        return function() {
+          clearTimeout(timer);
+          timer = setTimeout(updateKeywords, 400);
+        };
+      })();
+
+      let savePulseTimeout;
+      function showSavePulse() {
+        const statusEl = document.getElementById('save-status');
+        if (statusEl) {
+          statusEl.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span> Saving...';
+          clearTimeout(savePulseTimeout);
+          savePulseTimeout = setTimeout(() => {
+            statusEl.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Auto Saved';
+          }, 800);
+        }
+      }
+
+      // Find and Replace functionality
+      const btnReplace = document.getElementById('btn-replace');
+      const btnSwap = document.getElementById('btn-swap-find-replace');
+      const findInput = document.getElementById('find-input');
+      const replaceInput = document.getElementById('replace-input');
+
+      // Swap button click listener
+      btnSwap?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const findVal = findInput.value;
+        const replaceVal = replaceInput.value;
+        findInput.value = replaceVal;
+        replaceInput.value = findVal;
+        
+        // Visual transition effect
+        findInput.classList.add('transition-opacity', 'duration-150', 'opacity-30');
+        replaceInput.classList.add('transition-opacity', 'duration-150', 'opacity-30');
+        setTimeout(() => {
+          findInput.classList.remove('opacity-30');
+          replaceInput.classList.remove('opacity-30');
+        }, 150);
+      });
+
+      btnReplace.addEventListener('click', () => {
+        const findText = findInput.value;
+        const replaceText = replaceInput.value;
+        if (!findText) {
+          showToast('Please enter text to find.', 'error');
+          return;
+        }
+        
+        let text = editor.innerText;
+        const regex = new RegExp(findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+        const matchCount = (text.match(regex) || []).length;
+        
+        if (matchCount > 0) {
+          editor.innerText = text.replace(regex, replaceText);
+          updateMetrics();
+          scheduleKeywordAnalysis();
+          saveState();
+          showToast(`Replaced ${matchCount} occurrence(s).`);
+        } else {
+          showToast('No matches found.', 'error');
+        }
+      });
+
+      // Keyboard Shortcuts (Save)
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          showToast('Draft saved to local storage.');
+          saveState();
+        }
+      });
+
+      // Undo/Redo clicks
+      document.getElementById('btn-undo')?.addEventListener('click', () => {
+        if (historyIndex > 0) {
+          historyIndex--;
+          editor.innerText = historyStack[historyIndex];
+          updateMetrics();
+          scheduleKeywordAnalysis();
+          updateUndoRedoButtons();
+        }
+      });
+      document.getElementById('btn-redo')?.addEventListener('click', () => {
+        if (historyIndex < historyStack.length - 1) {
+          historyIndex++;
+          editor.innerText = historyStack[historyIndex];
+          updateMetrics();
+          scheduleKeywordAnalysis();
+          updateUndoRedoButtons();
+        }
+      });
+
+      // Clipboard Paste
+      document.getElementById('btn-paste')?.addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          if (text) {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0 && document.activeElement === editor) {
+              const range = selection.getRangeAt(0);
+              range.deleteContents();
+              range.insertNode(document.createTextNode(text));
+            } else {
+              editor.innerText += text;
+            }
+            editor.focus();
+            updateMetrics();
+            scheduleKeywordAnalysis();
+            saveState();
+            showToast('Pasted from clipboard.');
+          }
+        } catch {
+          showToast('Clipboard access denied.', 'error');
+        }
+      });
+
+      // Clipboard Copy
+      document.getElementById('btn-copy')?.addEventListener('click', () => {
+        if (editor.innerText.trim().length > 0) {
+          navigator.clipboard.writeText(editor.innerText);
+          showToast('Copied to clipboard!');
+        }
+      });
+
+      // Clear
+      document.getElementById('btn-clear')?.addEventListener('click', () => {
+        if (editor.innerText.length > 0) {
+          editor.innerText = '';
+          updateMetrics();
+          scheduleKeywordAnalysis();
+          saveState();
+          showToast('Canvas cleared.');
+        }
+      });
+
+      // Helper function to execute space removal
+      function executeRemoveExtraSpaces() {
+        const text = editor.innerText;
+        if (!text.trim()) {
+          showToast('Editor is empty.', 'error');
+          return;
+        }
+        const cleaned = removeExtraSpaces(text);
+        editor.innerText = cleaned;
+        updateMetrics();
+        scheduleKeywordAnalysis();
+        saveState();
+        showToast('Extra spaces removed successfully.');
+      }
+
+      // Remove Extra Spaces
+      document.getElementById('btn-remove-spaces')?.addEventListener('click', executeRemoveExtraSpaces);
+      document.getElementById('btn-navbar-remove-spaces')?.addEventListener('click', executeRemoveExtraSpaces);
+
+      // Case dropdown toggle
+      caseBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        caseDropdown.classList.toggle('hidden');
+        exportDropdown?.classList.add('hidden');
+      });
+
+      // Export dropdown toggle
+      exportBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        exportDropdown.classList.toggle('hidden');
+        caseDropdown?.classList.add('hidden');
+      });
+
+      document.addEventListener('click', () => {
+        caseDropdown?.classList.add('hidden');
+        exportDropdown?.classList.add('hidden');
+      });
+
+      document.getElementById('case-upper')?.addEventListener('click', () => transformCase(text => text.toUpperCase()));
+      document.getElementById('case-lower')?.addEventListener('click', () => transformCase(text => text.toLowerCase()));
+      document.getElementById('case-title')?.addEventListener('click', () => transformCase(text => text.replace(/\b\w/g, c => c.toUpperCase())));
+      document.getElementById('case-sentence')?.addEventListener('click', () => transformCase(text => text.replace(/(^\s*|[.!?]\s+)([a-z])/g, (_, boundary, letter) => boundary + letter.toUpperCase())));
+
+      function transformCase(transformer) {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0 && selection.toString().trim().length > 0 && document.activeElement === editor) {
+          const range = selection.getRangeAt(0);
+          const selectedText = range.toString();
+          range.deleteContents();
+          range.insertNode(document.createTextNode(transformer(selectedText)));
+        } else {
+          editor.innerText = transformer(editor.innerText);
+        }
+        editor.focus();
+        updateMetrics();
+        scheduleKeywordAnalysis();
+        saveState();
+      }
+
+      // Exports
+      document.getElementById('export-txt')?.addEventListener('click', () => triggerDownload(editor.innerText, 'draft.txt', 'text/plain'));
+      
+      document.getElementById('export-docx')?.addEventListener('click', () => {
+        const text = editor.innerText.replace(/\n/g, '<br>');
+        const html = `<html><body>${text}</body></html>`;
+        triggerDownload(html, 'draft.doc', 'application/msword');
+      });
+
+      document.getElementById('export-pdf')?.addEventListener('click', () => {
+        const text = editor.innerText;
+        if (!text.trim()) {
+          showToast('Canvas is empty!', 'error');
+          return;
+        }
+        const printWin = window.open('', '_blank', 'width=800,height=900');
+        printWin.document.write(`<!DOCTYPE html><html><head><title>Export</title><style>body{font-family:serif;font-size:12pt;white-space:pre-wrap;padding:2cm;}</style></head><body>${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</body></html>`);
+        printWin.document.close();
+        printWin.focus();
+        setTimeout(() => { printWin.print(); }, 200);
+      });
+
+      function triggerDownload(content, filename, contentType) {
+        if (!content.trim() && contentType === 'text/plain') {
+          showToast('Canvas is empty!', 'error');
+          return;
+        }
+        const blob = new Blob([content], { type: contentType });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast(`Exported ${filename}`);
+      }
+    });
+  }
+</script>

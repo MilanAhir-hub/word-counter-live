@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Terms & Conditions | WordCounter"
+  description="Read the WordCounter Terms of Service. Understand the rules, usage guidelines, and free forever model."
+  showFooter={true}
+>
+  <div class="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-neutral-100 font-sans selection:bg-neutral-200 dark:selection:bg-neutral-800 relative overflow-hidden">
+    
+    <!-- Dot grid backdrop overlay -->
+    <div class="absolute inset-0 grid-bg pointer-events-none opacity-[0.02] dark:opacity-[0.04]"></div>
+
+    <!-- Soft ambient glows -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <div class="absolute top-[-120px] left-[5%] h-[400px] w-[400px] rounded-full bg-violet-100/40 dark:bg-violet-950/20 blur-[120px]"></div>
+      <div class="absolute bottom-[-100px] right-[5%] h-[500px] w-[500px] rounded-full bg-cyan-100/30 dark:bg-cyan-950/10 blur-[100px]"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="relative max-w-3xl mx-auto px-6 py-16 lg:py-24 z-10 text-left">
+      
+      <!-- Hero Header -->
+      <header class="space-y-4 mb-12">
+        <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-violet-50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 border border-violet-100 dark:border-violet-800/50 w-fit">
+          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6M9 16h6M7 8h10M4 21h16a2 2 0 002-2V5a2 2 0 00-2-2H4a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+          Legal Agreement
+        </span>
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-[-0.04em] text-neutral-900 dark:text-white leading-[1.1]">
+          Terms of Service.
+        </h1>
+        <p class="text-xs text-neutral-400 dark:text-neutral-500 font-mono">Last updated: May 31, 2026</p>
+      </header>
+
+      <!-- Clauses Section -->
+      <section class="space-y-10 text-neutral-600 dark:text-neutral-300 leading-relaxed text-sm">
+        
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">1. Acceptance of Terms</h3>
+          <p class="font-light">
+            By accessing or using the WordCounter suite, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, please do not use the application.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">2. Free-to-Use Policy & Frictionless Design</h3>
+          <p class="font-light">
+            WordCounter is provided entirely free of charge, with no sign-ups or user profiles required. You have access to our full suite, including statistics calculators, keyword density extractors, multi-format file exports, and integrated AI writing helpers.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">3. Intellectual Property Rights</h3>
+          <p class="font-light">
+            WordCounter claims absolutely zero ownership over any text, drafts, files, or copy you write within the editor workspace. The intellectual property rights of your drafts are, and will always remain, 100% yours.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">4. User Guidelines & Rules</h3>
+          <p class="font-light">
+            You agree to use our site for lawful purposes. You must not attempt to disrupt site functionality, inject malicious scripts, brute force Gemini AI API endpoints, or scrape/distribute content from our educational Blog page without prior citation.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-neutral-900 dark:text-white">5. Disclaimer of Warranties</h3>
+          <p class="font-light">
+            Because all word analysis, readability counting, and draft auto-saves run locally in your browser's private environment (`localStorage`), you are responsible for maintaining your drafts. WordCounter is provided "as is" without warranty of any kind. We are not liable for accidental data losses resulting from clearing browser data or cache.
+          </p>
+        </div>
+
+        <div class="pt-8 border-t border-neutral-100 dark:border-neutral-900 text-xs text-neutral-400 dark:text-neutral-500 font-mono">
+          For legal inquiries, contact hello@wordcounter.live.
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Premium dot-grid utility matching home designs */
+  .grid-bg {
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  :global(html[data-theme="dark"]) .grid-bg {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  }
+</style>

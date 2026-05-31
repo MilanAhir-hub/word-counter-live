@@ -1,51 +1,181 @@
 ---
+const navLinks = [
+  { label: 'Editor', href: '/editor' },
+  { label: 'Analytics', href: '/analytics' },
+  { label: 'Dictionary', href: '/dictionary' },
+  { label: 'Blog', href: '/blog' },
+];
+
+const currentPath = Astro.url.pathname;
 ---
 
-<nav class="h-16 flex items-center border-b border-hairline bg-canvas sticky top-0 z-50">
-  <div class="container-main flex items-center justify-between w-full">
-    <a href="/" class="flex items-center gap-2 no-underline" aria-label="Word Counter Live Home">
-      <span class="w-7 h-7 rounded-md bg-ink flex items-center justify-center text-xs text-on-primary font-semibold">W</span>
-      <span class="text-body-sm-strong text-ink hidden sm:inline">Word Counter Live</span>
-    </a>
-    <div class="flex items-center gap-1 sm:gap-2">
-      <a href="#tool" class="nav-link">Tool</a>
-      <a href="#features" class="nav-link">Features</a>
-      <a href="#tool" class="nav-cta-signup">Start Counting</a>
+<header class="sticky top-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-black/80 backdrop-blur-md transition-colors duration-300">
+  <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
+    <div class="flex items-center gap-6">
+      <a href="/" class="flex items-center no-underline hover:opacity-85 transition-opacity" aria-label="WordCounter Home">
+        <!-- Light mode logo -->
+        <img src="/image.png" alt="WordCounter Logo" class="h-8 w-8 object-contain rounded-md shadow-sm dark:hidden block" />
+        <!-- Dark mode logo -->
+        <img src="/image%20copy.png" alt="WordCounter Logo" class="h-8 w-8 object-contain rounded-md shadow-sm dark:block hidden" />
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1">
+        {
+          navLinks.map((link) => {
+            const isActive = currentPath === link.href || (currentPath === '/' && link.href === '/');
+            return (
+              <a
+                href={link.href}
+                class={`whitespace-nowrap rounded-md px-3 py-1.5 text-sm no-underline transition-colors duration-150 ${
+                  isActive 
+                    ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-medium' 
+                    : 'text-neutral-500 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white'
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })
+        }
+      </nav>
+    </div>
+
+    <!-- Right side: Theme toggle + Mobile Hamburger -->
+    <div class="flex items-center gap-1">
+      <!-- Theme Toggle Button -->
+      <button id="theme-toggle" class="p-2 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white focus:outline-none cursor-pointer rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Toggle dark mode">
+        <!-- Sun icon (shown in dark mode) -->
+        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+        </svg>
+      </button>
+
+
     </div>
   </div>
-</nav>
+
+  <!-- Mobile Navigation Menu (Hidden by default) -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-neutral-100 dark:border-neutral-800 bg-white dark:bg-black shadow-lg absolute w-full left-0 z-40">
+    <nav class="flex flex-col px-4 py-3 space-y-1">
+      {
+        navLinks.map((link) => {
+          const isActive = currentPath === link.href || (currentPath === '/' && link.href === '/');
+          return (
+            <a
+              href={link.href}
+              class={`block rounded-md px-4 py-3 text-base no-underline transition-colors duration-150 ${
+                isActive 
+                  ? 'bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 font-semibold border-l-2 border-violet-600' 
+                  : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-900 dark:hover:text-white'
+              }`}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const iconSun = document.getElementById('theme-icon-sun');
+    const iconMoon = document.getElementById('theme-icon-moon');
+    const html = document.documentElement;
+
+    function updateThemeIcons(theme) {
+      if (theme === 'dark') {
+        iconSun.classList.remove('hidden');
+        iconMoon.classList.add('hidden');
+      } else {
+        iconSun.classList.add('hidden');
+        iconMoon.classList.remove('hidden');
+      }
+    }
+
+    // Set initial icon state
+    const currentTheme = html.getAttribute('data-theme') || 'light';
+    updateThemeIcons(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+      html.classList.add('theme-transitioning');
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('wc-theme', next);
+      updateThemeIcons(next);
+      setTimeout(() => {
+        html.classList.remove('theme-transitioning');
+      }, 300);
+    });
+  });
+</script>
 
 <style>
-  .nav-link {
-    color: var(--color-body);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: -0.28px;
-    padding: 4px 12px;
-    border-radius: 9999px;
-    text-decoration: none;
-    transition: background-color 0.15s, color 0.15s;
+  header {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border-color: #eaeaea !important;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
   }
-  .nav-link:hover {
-    background-color: var(--color-canvas-soft-2);
-    color: var(--color-ink);
+  :global(html[data-theme="dark"]) header {
+    background-color: rgba(9, 9, 11, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
   }
-  .nav-cta-signup {
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    padding: 0 8px;
-    height: 28px;
-    display: inline-flex;
-    align-items: center;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: opacity 0.15s;
+
+  /* Nav Link theme transitions */
+  header a {
+    transition: color 0.15s ease, background-color 0.15s ease;
   }
-  .nav-cta-signup:hover {
-    opacity: 0.85;
+
+  /* Desktop links dark mode overrides */
+  :global(html[data-theme="dark"]) header nav a {
+    color: #a1a1aa !important;
+  }
+  :global(html[data-theme="dark"]) header nav a.bg-neutral-100 {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+  }
+  :global(html[data-theme="dark"]) header nav a:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    color: #ffffff !important;
+  }
+
+  /* Controls dark mode overrides */
+  :global(html[data-theme="dark"]) #theme-toggle {
+    color: #a1a1aa !important;
+  }
+  :global(html[data-theme="dark"]) #theme-toggle:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* Mobile menu dark mode overrides */
+  #mobile-menu {
+    background-color: #ffffff;
+    border-color: #eaeaea;
+  }
+  :global(html[data-theme="dark"]) #mobile-menu {
+    background-color: #0c0c0f !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+  }
+  :global(html[data-theme="dark"]) #mobile-menu nav a {
+    color: #a1a1aa !important;
+    border-color: transparent !important;
+  }
+  :global(html[data-theme="dark"]) #mobile-menu nav a.bg-violet-50 {
+    background-color: rgba(139, 92, 246, 0.1) !important;
+    color: #c4b5fd !important;
+    border-left-color: #8b5cf6 !important;
+  }
+  :global(html[data-theme="dark"]) #mobile-menu nav a:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    color: #ffffff !important;
   }
 </style>
